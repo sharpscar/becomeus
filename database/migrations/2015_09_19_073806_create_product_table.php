@@ -16,7 +16,7 @@ class CreateProductTable extends Migration
         Schema::table('products', function($table)
         {
           $table->increments('id');
-        
+
         });
 
     }
@@ -31,4 +31,6 @@ class CreateProductTable extends Migration
         //
         Schema::dropIfExists('products');
     }
+
+  
 }
