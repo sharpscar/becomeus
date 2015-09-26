@@ -1,5 +1,9 @@
 @extends('layouts.master')
 @section('content')
+
+
+
+
 <h1>All Products</h1>
 
 <div class="row-fluid">
@@ -43,19 +47,69 @@
     <th>Modified User</th>
   </tr>
 
-
+<?php
+  #$array_dot = array_dot($products);
+  #$arr0 = array_get($products, );  $arr_dot['id']
+?>
 
 
   @foreach($products as $keys=>$values)
   <?php
       $arr =  $values['attributes'];
-      #$cnt = count($arr) -1;
+      #var_dump($arr);
+      $res_arr = [];
+
+      $res_arr['product_code'] = $arr['product_code'];
+      $res_arr['image'] = $arr['image'];
+      $res_arr['price_cny'] = $arr['price_cny'];
+      $res_arr['status']=$arr['status'];
+      $res_arr['business_group']=$arr['business_group'];
+      $res_arr['product_group']=$arr['product_group'];
+      $res_arr['stock']=$arr['stock'];
+      $res_arr['supplier']=$arr['supplier'];
+      $res_arr['marketplaces']=$arr['marketplaces'];
+      $res_arr['added_time']=$arr['added_time'];
+      $res_arr['added_user']=$arr['added_user'];
+      $res_arr['modified_time']=$arr['modified_time'];
+      $res_arr['modified_user']=$arr['modified_user'];
+      $res_arr['id']=$arr['id'];
+
+      $arr = $res_arr;
+      $arr_dot = array_dot($arr);
+
   ?>
     <tr>
       @foreach($arr as $key=>$value)
 
-        @if($key=="Image")
+        @if($key=="image")
           <td><img src="{{$value}}" width="50px" height="50px" rel="noreferrer"/></td>
+        @elseif($key=="id")
+          <!-- 키가 id인경우는 테이블에는 표시가 안되지만 value값을 사용해서 수정 / 삭제가 가능하게 유도해야한다. -->
+
+        @elseif($key=="product_code")
+          <a href=""><td>
+            {{$value}}
+            <br>
+
+            <a href="{{ route('product.edit',$arr_dot['id']) }}" class="btn btn-primary">수정</a>
+            <form id="delete_form" class="" action="{{ route('product.destroy',$arr_dot['id']) }}" method="post" style="display: inline;",>
+              <input type="hidden" name="_token" value="{{csrf_token()}}">
+              <input type="hidden" name="_method" value="delete">
+              <button class="btn btn-primary" >삭제</button>
+
+            </form>
+            <script type="text/javascript">
+              $(document).on('click','#delete_form',function(){
+                return confirm('are you sure?');
+              });
+
+            </script>
+
+            <!-- <a href="{{ route('product.destroy',$arr_dot['id']) }}" class="btn btn-primary">삭제</a> -->
+            <!-- route('product.destroy',$arr_dot['id'])-->
+
+          </td></div></a>
+
         @elseif($key!="id")
         <td>{{$value}}</td>
         @endif

@@ -11,12 +11,12 @@
     <div class="form-group">
 
       <div class="col-sm-2 col-lg-2">
-        <label for="BusinessGroup">Business Group <font color="#ec3e3e">*</font> </label>
+        <label for="Business_group">Business Group <font color="#ec3e3e">*</font> </label>
       </div>
 
       <div class="col-sm-3 col-lg-1" >
 
-        <select class="" name="businessGroup" style="width:240px" required>
+        <select class="" name="business_group" style="width:240px" required>
           <option value="">-select-</option>
           <option value="partnerShip">Partnership</option>
           <option value="directBusiness">Direct Business</option>
@@ -31,11 +31,11 @@
 
     <div class="form-group">
       <div class="col-sm-2 col-lg-2 " >
-        <label for="productName">Product Name</label>
+        <label for="product_name">Product Name</label>
       </div>
       <div class="col-sm-3 col-lg-5">
 
-        <input type="text" name="productName" value="" style="width:240px" >
+        <input type="text" name="product_name" value="" style="width:240px" >
       </div>
     </div>
   </div>
@@ -50,11 +50,11 @@
     <div class="form-group">
 
       <div class="col-sm-2 col-lg-2" >
-        <label for="ProductGroup">Product Group <font color="#ec3e3e">*</font></label>
+        <label for="Product_group">Product Group <font color="#ec3e3e">*</font></label>
       </div>
       <div class="col-sm-3 col-lg-2">
 
-        <select class="" name="productGroup" style="width:240px" required>
+        <select class="" name="product_group" style="width:240px" required>
           <option value="">-select-</option>
           <option value="shoes">shoes</option>
         </select>
@@ -66,7 +66,7 @@
     </div>
   <div class="form-group">
     <div class="col-sm-2 col-lg-2">
-      <label for="description">Discription</label>
+      <label for="description">Description</label>
     </div>
     <div class="col-sm-3 col-lg-5">
       <textarea name="description" rows="3" cols="40" style="width:240px;"></textarea>
@@ -133,8 +133,10 @@
       <label for="image">Image</label>
     </div>
     <div class="col-sm-3 col-lg-5">
+
+
       <input type="text" name="image_from_url" value="" style="width:240px">
-      <input type="file" name="image_form_file" value="">
+      <input type="file" name="image_from_file" value="" id="image_from_file">
     </div>
     </div>
   </div>
@@ -159,9 +161,9 @@
         <label for="marketplaces">Marketplace</label>
     </div>
     <div class="col-sm-3 col-lg-5">
-      <input type="checkbox" name="marketplaces" value="Amazone_com" >Amazone.com <br>
-      <input type="checkbox" name="marketplaces" value="maxstarStore">MaxstarStore <br>
-      <input type="checkbox" name="marketplaces" value="ebay">eBay and etc <br>
+      <input type="checkbox" name="marketplaces" value=" Amazon.com" >Amazone.com <br>
+      <input type="checkbox" name="marketplaces" value=" MaxstarStore">MaxstarStore <br>
+      <input type="checkbox" name="marketplaces" value=" eBay and etc">eBay and etc <br>
     </div>
   </div>
 </div>
@@ -171,11 +173,11 @@
   <div class="row-fluid">
     <div class="form-group">
     <div class="col-sm-2 col-lg-2">
-      <label for="productCode">Product Code <font color="#ec3e3e">*</font></label>
+      <label for="product_code">Product Code <font color="#ec3e3e">*</font></label>
     </div>
     <div class="col-sm-3 col-lg-2">
 
-      <input type="text" name="productCode" value="" style="width:240px" required>
+      <input type="text" name="product_code" value="" style="width:240px" required>
     </div>
   </div>
     <div class="col-sm-2 col-lg-1">
@@ -204,7 +206,7 @@
   <div class="row-fluid">
     <div class="form-group">
       <div class="col-sm-2 col-lg-2">
-        <label for="price_cny">Price <font color="#ec3e3e">*</font></label>
+        <label for="price_china">Price <font color="#ec3e3e">*</font></label>
       </div>
       <div class="col-sm-3 col-lg-2">
 
@@ -401,11 +403,11 @@
   <div class="row-fluid">
     <div class="form-group">
       <div class="col-sm-2 col-lg-2">
-        <label for="Material_china">Material(china) <font color="#ec3e3e">*</font></label>
+        <label for="material_china">Material(china) <font color="#ec3e3e">*</font></label>
       </div>
       <div class="col-sm-3 col-lg-2">
 
-        <textarea name="Material_china" rows="3" cols="40" style="width:240px" required></textarea>
+        <textarea name="material_china" rows="3" cols="40" style="width:240px" required></textarea>
       </div>
     </div>
 
@@ -429,11 +431,11 @@
   <div class="row-fluid">
     <div class="form-group">
       <div class="col-sm-2 col-lg-2">
-        <label for="Material_english">Material(english) </label>
+        <label for="material_english">Material(english) </label>
       </div>
       <div class="col-sm-3 col-lg-2">
 
-        <textarea name="Material_english" rows="3" cols="40" style="width:240px" ></textarea>
+        <textarea name="material_english" rows="3" cols="40" style="width:240px" ></textarea>
       </div>
     </div>
 
@@ -456,7 +458,7 @@
 
   <hr>
   <div class="" style="text-align:center">
-    <input type="button" class="btn btn-default" value="submit" onclick='getCheckboxValue()' >
+    <input type="button" class="btn btn-default" value="submit" onclick='doSubmit()' >
     <input type="reset" class="btn btn-default"  value="cancel">
   </div>
 </form>
