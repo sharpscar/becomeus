@@ -16,9 +16,14 @@ Route::get('/', function () {
     return  view('welcome');
 });
 
+// Route::get('login', array('as'=>'login','uses'=>'UsersController@login'));
+//
+// Route::post('login','UsersController@handleLogin');
+
 Route::get('/test', function(){
   return view('product.test');
 });
 
 
 Route::resource('product','ProductController');
+//Route::resource('product',['before'=>'auth','uses'=>'ProductController']);

@@ -18,6 +18,7 @@ class ProductController extends Controller
     public function index()
     {
         //
+        #return \Auth::user()->name;
 
         //출력될 갯수를 받아서 적용한다 추후 셀렉트 박스로 기능을 구현하면 된다.
          $limit = Input::get('limit')? : 10;
