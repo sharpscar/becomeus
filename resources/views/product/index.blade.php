@@ -1,11 +1,16 @@
 @extends('layouts.master')
+
+
 @section('content')
-
-
-
-
 <h1>All Products</h1>
+<div class="row-fluid">
+  <div class="col-sm-11">
 
+  </div>
+  <div class="col-sm-1">
+    <input type="button" name="name" class="btn btn-default" value="logout" onclick="window.location.href='/auth/logout'">
+  </div>
+</div>
 <div class="row-fluid">
   <div class="col-sm-1">
     <input type="button" style="margin-top:20px;" class="btn btn-default" name="name" value="상품등록" onclick="window.location.href='{{route('product.create') }}'" />
@@ -90,6 +95,7 @@
           <a href=""><td>
             {{$value}}
             <br>
+          <div data-inline="true">
 
             <a href="{{ route('product.edit',$arr_dot['id']) }}" class="btn btn-primary">수정</a>
             {!! Form::open(['method'=>'DELETE', 'route'=>['product.destroy',$arr_dot['id']], 'onsubmit'=>'confirmDelete()']  ) !!}
@@ -97,6 +103,7 @@
               <input type="hidden" name="_method" value="delete">
               <input type="submit" name="" class="btn btn-primary" value="삭제">
             {!! Form::close()!!}
+            </div>
             <!-- <form id="delete_form" class="" action="{{ route('product.destroy',$arr_dot['id']) }}" method="post" style="display: inline;",>
               <input type="hidden" name="_token" value="{{csrf_token()}}">
               <input type="hidden" name="_method" value="delete">

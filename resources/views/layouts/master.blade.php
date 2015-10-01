@@ -83,8 +83,21 @@
 
   </head>
   <body>
-    <div class="container-fluid">
+
+
+      <!-- <div class="container">
+          <div class="jumbotron ">
+           <img src="https://creator.zoho.com/appbuilder/sangguen2/order-management/downLoadImage?imgFileId=5752295000000012011&imgFileName=1422251796674_becomeus_logo.png" alt="logo" />
+           <p class="lead"></p>
+      </div> -->
+
+
+      <div class="container">
         @yield('content')
+
+      </div>
+
+
 
     </div>
   </body>
