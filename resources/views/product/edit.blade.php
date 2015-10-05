@@ -229,12 +229,12 @@
   <div class="row-fluid">
     <div class="form-group">
       <div class="col-sm-2 col-lg-2">
-        <label for="price_cny">Price <font color="#ec3e3e">*</font></label>
+        <label for="price">Price <font color="#ec3e3e">*</font></label>
       </div>
       <div class="col-sm-2 col-lg-2">
 
 
-        <input type="text" name="price_china" value="{{$product->price_cny}}" style="width:240px" required>
+        <input type="text" name="price_china" value="{{$product->price}}" style="width:240px" required>
       </div>
     </div>
 

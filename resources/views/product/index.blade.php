@@ -69,7 +69,7 @@
 
       $res_arr['product_code'] = $arr['product_code'];
       $res_arr['image'] = $arr['image'];
-      $res_arr['price_cny'] = $arr['price_cny'];
+      $res_arr['price'] = $arr['price'];
       $res_arr['status']=$arr['status'];
       $res_arr['business_group']=$arr['business_group'];
       $res_arr['product_group']=$arr['product_group'];

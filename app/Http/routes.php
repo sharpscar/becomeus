@@ -49,4 +49,5 @@ Route::controllers([
    'password' => 'Auth\PasswordController',
 ]);
 
-Route::post('/importData','ProductController@addData');
+Route::post('product/importData','ProductController@importData');
+Route::get('exd','ProductController@exportData');

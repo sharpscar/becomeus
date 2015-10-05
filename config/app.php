@@ -139,6 +139,7 @@ return [
         Intervention\Image\ImageServiceProvider::class,
        'Illuminate\Html\HtmlServiceProvider',
        'Maatwebsite\Excel\ExcelServiceProvider',
+       
 
 
 

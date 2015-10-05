@@ -5,8 +5,10 @@ use Illuminate\Support\Facades\Validator;
 #use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Input;
 #use App\Http\Requests;
+use Database\seeds\ProductCsvSeeder;
 use App\Http\Controllers\Controller;
 use App\Product;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProductController extends Controller
 {
@@ -46,14 +48,43 @@ class ProductController extends Controller
 
     }
 
-    public function addData(Request $request)
+    public function importData(Request $request)
     {
       $file = $request->file('file');
 
       $name = time() . $file->getClientOriginalName();
       #$file->getClientOriginalName();
-      $file->move('product/csv', $name);
-      return 'Done';
+      $file->move('csv', $name);
+
+      Excel::load('public/csv/'.$name, function($reader){
+        $reader->each(function($row){
+
+          Product::create($row->all());
+
+        });
+      });
+
+      //message Done'
+
+
+      return redirect()->route('product.index');
+    }
+
+    public function exportData(Request $request)
+    {
+      $data = Product::all();
+      #return dd($data);
+       Excel::create('product', function($excel){
+
+        $excel->sheet('noname', function($sheet){
+          $sheet->with(
+            Product::all()
+        );
+        });
+
+      })->export('csv');
+
+      return redirect()->route('/');
     }
 
     /**
