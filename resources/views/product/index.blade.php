@@ -15,7 +15,9 @@
   <div class="col-sm-1">
     <input type="button" style="margin-top:20px;" class="btn btn-default" name="name" value="상품등록" onclick="window.location.href='{{route('product.create') }}'" />
   </div>
+
   <div class="col-sm-7">
+
   </div>
   <div class="col-sm-3" style="text-align:right">
     <!-- 검색 폼  -->
@@ -33,6 +35,7 @@
     <?php echo $products->appends(['q'=>$query])->render() ?>
   </div>
 </div>
+
 
 <table class="table table-striped">
 
@@ -95,21 +98,23 @@
           <a href=""><td>
             {{$value}}
             <br>
-          <div data-inline="true">
 
-            <a href="{{ route('product.edit',$arr_dot['id']) }}" class="btn btn-primary">수정</a>
+
             {!! Form::open(['method'=>'DELETE', 'route'=>['product.destroy',$arr_dot['id']], 'onsubmit'=>'confirmDelete()']  ) !!}
+              <a href="{{ route('product.edit',$arr_dot['id']) }}" class="btn btn-primary">수정</a>
               <input type="hidden" name="_token" value="{{csrf_token()}}">
               <input type="hidden" name="_method" value="delete">
               <input type="submit" name="" class="btn btn-primary" value="삭제">
             {!! Form::close()!!}
-            </div>
+
             <!-- <form id="delete_form" class="" action="{{ route('product.destroy',$arr_dot['id']) }}" method="post" style="display: inline;",>
               <input type="hidden" name="_token" value="{{csrf_token()}}">
               <input type="hidden" name="_method" value="delete">
               <button class="btn btn-primary" >삭제</button>
 
             </form> -->
+
+
             <script type="text/javascript">
               function confirmDelete(){
                  var x = confirm("Are you sure you want to delete?");
@@ -136,8 +141,35 @@
 
    @endforeach
 </table>
+<div class="row-fluid">
+  <div class="col-sm-12">
+    <form id="addDataForm"class="dropzone" action="importData" method="post">
+      {{csrf_field()}}
+    </form>
+  </div>
+
+</div>
+
+
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.0.1/dropzone.js">
+
+</script>
+<script type="text/javascript">
+//   Dropzone.options.addDataForm={
+//   paramName:'data',
+//   maxFilesize:10,
+//   acceptedFiles:'.csv'
+// };
+</script>
+
+
+
 <style media="screen">
     table.img{
       width:10%;
+    }
+    .dropzone{
+      height:10px;
     }
 </style>

@@ -11,19 +11,24 @@
 |
 */
 
-Route::get('/', 'Auth\AuthController@getLogin');
+Route::get('/', function () {
+  #return 'nothing';
+    //로그인 정보가 있는경우
+    if(Auth::check()){
+      return Redirect::to('product');
+    }else{
+      //없는경우
+        return  view('auth.login');
+    }
 
-// function () {
-//   #return 'nothing';
-//     return  view('auth.login');
-// });
+});
 
 // Route::get('login', array('as'=>'login','uses'=>'UsersController@login'));
 //
 // Route::post('login','UsersController@handleLogin');
 
 Route::get('/test', function(){
-  return view('product.test');
+
 });
 
 
@@ -43,3 +48,5 @@ Route::post('auth/register', 'Auth\AuthController@postRegister');
 Route::controllers([
    'password' => 'Auth\PasswordController',
 ]);
+
+Route::post('/importData','ProductController@addData');

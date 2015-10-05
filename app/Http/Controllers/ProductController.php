@@ -1,10 +1,10 @@
 <?php namespace App\Http\Controllers;
 
-#use Illuminate\Http\Request;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Request;
+#use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Input;
-use App\Http\Requests;
+#use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Product;
 
@@ -16,6 +16,7 @@ class ProductController extends Controller
   {
     #$this->middleware('auth');
     $this->middleware('auth', ['except' => ['home']]);
+
   }
 
     /**
@@ -30,7 +31,7 @@ class ProductController extends Controller
 
         //출력될 갯수를 받아서 적용한다 추후 셀렉트 박스로 기능을 구현하면 된다.
          $limit = Input::get('limit')? : 10;
-         $query = Request::get('q');
+         $query = Input::get('q');
 
         if($query)
         {
@@ -43,6 +44,16 @@ class ProductController extends Controller
         return view('product.index', compact(['products','query']));
 
 
+    }
+
+    public function addData(Request $request)
+    {
+      $file = $request->file('file');
+
+      $name = time() . $file->getClientOriginalName();
+      #$file->getClientOriginalName();
+      $file->move('product/csv', $name);
+      return 'Done';
     }
 
     /**

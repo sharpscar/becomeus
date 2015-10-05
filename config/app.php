@@ -78,7 +78,7 @@ return [
     |
     */
 
-    'key' => env('APP_KEY', 'sharpscarandbecomeusnicetomeetyo'),
+    'key' => env('APP_KEY'),
 
     'cipher' => 'AES-256-CBC',
 
@@ -136,8 +136,9 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-       Intervention\Image\ImageServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
        'Illuminate\Html\HtmlServiceProvider',
+       'Maatwebsite\Excel\ExcelServiceProvider',
 
 
 
@@ -199,8 +200,8 @@ return [
         'View'      => Illuminate\Support\Facades\View::class,
         'Image'     => Intervention\Image\Facades\Image::class,
         'Html'      => 'Illuminate\Html\HtmlFacade',
-        'Form'      => 'Illuminate\Html\FormFacade'
-
+        'Form'      => 'Illuminate\Html\FormFacade',
+        'Excel' => 'Maatwebsite\Excel\Facades\Excel'
 
     ],
 
