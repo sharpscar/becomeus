@@ -36,4 +36,9 @@ class Product extends Model
       'modified_time',
       'modified_user'
     ];
+
+    public function photos()
+    {
+      return $this->hasMany('App\Photo');
+    }
 }

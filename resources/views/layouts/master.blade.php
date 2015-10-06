@@ -5,6 +5,7 @@
     <title></title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" media="screen" title="no title" charset="utf-8">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.0.1/dropzone.css" media="screen" title="no title" charset="utf-8">
+
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js">
     </script>
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js">
@@ -15,6 +16,15 @@
 //  $(document).ready(function(){
 //
 // });
+
+/* 리미트 구현 하려 했으나 라우트 관련 지식이 부족하여 다음으로 미룬다.*/
+  $("#sel_limit").on('change', function(){
+    var select = $(this);
+    var form = $("#search_form");
+    // alert(select.val());
+    // form.attr('action','/product?limit="+select.val())' );
+    form.submit();
+  });
 
     function doSubmit(){
       getCheckboxValue();

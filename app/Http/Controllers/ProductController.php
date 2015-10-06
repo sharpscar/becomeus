@@ -138,7 +138,7 @@ class ProductController extends Controller
           $product->image = $newFileName;
         }
          $product->product_code  =Input::get('product_code');
-         $product->price_cny  =Input::get('price_china');
+         $product->price  =Input::get('price_china');
          $product->price_krw  =Input::get('price_krw');
          $product->status  =Input::get('status');
          $product->category  =Input::get('category');
@@ -177,6 +177,7 @@ class ProductController extends Controller
     public function show($id)
     {
         //
+        return view('product.show');
     }
 
     /**
@@ -232,7 +233,7 @@ class ProductController extends Controller
 
           # $product->update(Input::all());
           $product->product_code  =Input::get('product_code');
-          $product->price_cny  =Input::get('price_china');
+          $product->price  =Input::get('price_china');
           $product->price_krw  =Input::get('price_krw');
           $product->status  =Input::get('status');
           $product->category  =Input::get('category');

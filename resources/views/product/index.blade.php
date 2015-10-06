@@ -2,6 +2,8 @@
 
 
 @section('content')
+
+
 <h1>All Products</h1>
 <div class="row-fluid">
   <div class="col-sm-11">
@@ -11,29 +13,58 @@
     <input type="button" name="name" class="btn btn-default" value="logout" onclick="window.location.href='/auth/logout'">
   </div>
 </div>
+
 <div class="row-fluid">
   <div class="col-sm-1">
     <input type="button" style="margin-top:20px;" class="btn btn-default" name="name" value="상품등록" onclick="window.location.href='{{route('product.create') }}'" />
   </div>
 
-  <div class="col-sm-7">
+  <div class="col-sm-5">
 
   </div>
-  <div class="col-sm-3" style="text-align:right">
+
+  <!-- <form class="form-inline" role="form"  method="get" id="limit_form"  style="margin-top:20px;text-align:right;">
+    <label for="sel_limit">line</label>
+    <select  name="limit"  class="form-control" id="sel_limit" style="width:50%;">
+      <option value="10">10</option>
+      <option value="20">20</option>
+      <option value="50">50</option>
+      <option value="100">100</option>
+      <option value="150">150</option>
+      <option value="200">200</option>
+    </select>
+  </form> -->
+
+  <div class="col-sm-4" >
     <!-- 검색 폼  -->
-  <form class="form-inline" role="form"  method="get" id="search_form" >
+  <form class="form-inline" role="form"  method="get" id="search_form" style="text-align:right;">
     <div class="form-group" style="margin-top:20px;">
+      <label for="sel_limit">line</label>
+      <select  name="limit"  class="form-control" id="sel_limit" style="width:20%;">
+        <option value="0">-select-</option>
+        <option value="10">10</option>
+        <option value="20">20</option>
+        <option value="50">50</option>
+        <option value="100">100</option>
+        <option value="150">150</option>
+        <option value="200">200</option>
+      </select> &nbsp;&nbsp;&nbsp;
       <label for="q">Product Code</label>
       <input type="hidden" name="_token" value="{{csrf_token()}}">
-      <input type="text" class="form-control" id="q" name="q" placeholder="Search.."style="width:45%; display:inline;">
+      <input type="text" class="form-control" id="q" name="q" placeholder="Search.."style="width:35%; display:inline;">
       <input type="submit" class="btn btn-default" value="검색" id="search_btn">
     </div>
   </form>
   </div>
-
   <div class="col-sm-1">
-    <?php echo $products->appends(['q'=>$query])->render() ?>
+    <?php echo $products->appends(['q'=>$query])->render(); ?>
   </div>
+  <div class="col-sm-1">
+    <a href="exd" class="btn btn-default" style="margin-top:20px;">
+      <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true">&nbsp;csv</span>
+    </a>
+  </div>
+
 </div>
 
 
@@ -95,15 +126,14 @@
           <!-- 키가 id인경우는 테이블에는 표시가 안되지만 value값을 사용해서 수정 / 삭제가 가능하게 유도해야한다. -->
 
         @elseif($key=="product_code")
-          <a href=""><td>
-            {{$value}}
+          <td>
+            <a href="{{route('product.show', $arr_dot['id'])}}">{{$value}}</a>
             <br>
-
-
-            {!! Form::open(['method'=>'DELETE', 'route'=>['product.destroy',$arr_dot['id']], 'onsubmit'=>'confirmDelete()']  ) !!}
+            {!! Form::open(['method'=>'DELETE', 'route'=>['product.destroy',$arr_dot['id']], 'onsubmit'=>'return confirmDelete()']  ) !!}
               <a href="{{ route('product.edit',$arr_dot['id']) }}" class="btn btn-primary">수정</a>
               <input type="hidden" name="_token" value="{{csrf_token()}}">
               <input type="hidden" name="_method" value="delete">
+
               <input type="submit" name="" class="btn btn-primary" value="삭제">
             {!! Form::close()!!}
 
@@ -114,7 +144,6 @@
 
             </form> -->
 
-
             <script type="text/javascript">
               function confirmDelete(){
                  var x = confirm("Are you sure you want to delete?");
@@ -124,13 +153,12 @@
                   return false;
                 }
               }
-
             </script>
 
             <!-- <a href="{{ route('product.destroy',$arr_dot['id']) }}" class="btn btn-primary">삭제</a> -->
             <!-- route('product.destroy',$arr_dot['id'])-->
 
-          </td></div></a>
+          </td></div>
 
         @elseif($key!="id")
         <td>{{$value}}</td>
@@ -141,7 +169,12 @@
 
    @endforeach
 </table>
+
+
 <div class="row-fluid">
+  <br><br>
+  <h4>데이터 베이스에 넣을 csv 파일을 여기에 놓으세요</h4>
+  <hr>
   <div class="col-sm-12">
     <form id="addDataForm"class="dropzone" action="importData" method="post">
       {{csrf_field()}}
@@ -161,6 +194,8 @@
 //   maxFilesize:10,
 //   acceptedFiles:'.csv'
 // };
+
+
 </script>
 
 
