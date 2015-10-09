@@ -5,7 +5,7 @@
 <br><br><br><br>
 <div class="container-fluid">
 
-  <form class="" action="{{route('product.index')}}" id="productForm" method="post" enctype="multipart/form-data">
+  <form class="" action="{{route('product.store')}}" id="productForm" method="post" enctype="multipart/form-data">
    <input type="hidden" name="_token" value="{{csrf_token()}}">
   <div class="row-fluid">
     <div class="form-group">
@@ -463,5 +463,6 @@
   </div>
 </form>
   <!-- -->
+@include('errors.list')
 
 </div>

@@ -35,6 +35,7 @@ Route::get('/test', function(){
 Route::resource('product','ProductController');
 //Route::resource('product',['before'=>'auth','uses'=>'ProductController']);
 
+#Route::post('product/{id}/photos', ['as'=>'stor_photo_path','uses'=>'ProductController@addPhoto']);
 
 // Authentication routes...
 Route::get('auth/login', 'Auth\AuthController@getLogin');
@@ -49,5 +50,5 @@ Route::controllers([
    'password' => 'Auth\PasswordController',
 ]);
 
-Route::post('product/importData','ProductController@importData');
+Route::post('importData','ProductController@importData');
 Route::get('exd','ProductController@exportData');

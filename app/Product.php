@@ -23,7 +23,7 @@ class Product extends Model
     protected $fillable = [
 
       'product_code',
-      'Image',
+      'image',
       'price',
       'status',
       'business_group',
@@ -40,5 +40,10 @@ class Product extends Model
     public function photos()
     {
       return $this->hasMany('App\Photo');
+    }
+
+    public function addPhoto(Photo $photo)
+    {
+      return $this->photos()->save($photo);
     }
 }

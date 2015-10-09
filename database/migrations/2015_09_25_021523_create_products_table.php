@@ -23,7 +23,7 @@ class CreateProductsTable extends Migration
         $table->string('supplier');
         $table->string('brand');
         $table->string('product_code');
-        $table->integer('price_cny');
+        $table->integer('price');
         $table->integer('price_krw');
         $table->integer('stock');
         $table->string('variation');
@@ -36,7 +36,7 @@ class CreateProductsTable extends Migration
         $table->string('description');
         $table->string('keyword');
         $table->string('image');
-        $table->string('marketplaces');
+        $table->string('marketplaces')->nullable();
         $table->string('status');
         $table->string('added_time');
         $table->string('added_user');

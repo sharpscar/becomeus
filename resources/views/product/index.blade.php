@@ -19,7 +19,7 @@
     <input type="button" style="margin-top:20px;" class="btn btn-default" name="name" value="상품등록" onclick="window.location.href='{{route('product.create') }}'" />
   </div>
 
-  <div class="col-sm-5">
+  <div class="col-sm-4">
 
   </div>
 
@@ -35,7 +35,7 @@
     </select>
   </form> -->
 
-  <div class="col-sm-4" >
+  <div class="col-sm-5" >
     <!-- 검색 폼  -->
   <form class="form-inline" role="form"  method="get" id="search_form" style="text-align:right;">
     <div class="form-group" style="margin-top:20px;">
@@ -51,7 +51,7 @@
       </select> &nbsp;&nbsp;&nbsp;
       <label for="q">Product Code</label>
       <input type="hidden" name="_token" value="{{csrf_token()}}">
-      <input type="text" class="form-control" id="q" name="q" placeholder="Search.."style="width:35%; display:inline;">
+      <input type="text" class="form-control" id="q" name="q" placeholder="Search.."style="width:25%; display:inline;">
       <input type="submit" class="btn btn-default" value="검색" id="search_btn">
     </div>
   </form>
@@ -66,6 +66,7 @@
   </div>
 
 </div>
+
 
 
 <table class="table table-striped">
@@ -121,7 +122,7 @@
       @foreach($arr as $key=>$value)
 
         @if($key=="image")
-          <td><img src="{{$value}}" width="50px" height="50px" rel="noreferrer"/></td>
+          <td><img src="{{$value}}"  rel="noreferrer"/></td>
         @elseif($key=="id")
           <!-- 키가 id인경우는 테이블에는 표시가 안되지만 value값을 사용해서 수정 / 삭제가 가능하게 유도해야한다. -->
 
@@ -208,3 +209,4 @@
       height:10px;
     }
 </style>
+@stop

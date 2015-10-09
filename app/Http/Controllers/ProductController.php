@@ -1,14 +1,19 @@
 <?php namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Image;
+
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Illuminate\Support\Facades\Validator;
 #use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Input;
 #use App\Http\Requests;
 use Database\seeds\ProductCsvSeeder;
 use App\Http\Controllers\Controller;
-use App\Product;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Product;
+use App\Photo;
+
 
 class ProductController extends Controller
 {
@@ -17,7 +22,7 @@ class ProductController extends Controller
   public function __construct()
   {
     #$this->middleware('auth');
-    $this->middleware('auth', ['except' => ['home']]);
+    $this->middleware('auth');
 
   }
 
@@ -28,10 +33,6 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
-        #return \Auth::user()->name;
-
-        //출력될 갯수를 받아서 적용한다 추후 셀렉트 박스로 기능을 구현하면 된다.
          $limit = Input::get('limit')? : 10;
          $query = Input::get('q');
 
@@ -44,9 +45,12 @@ class ProductController extends Controller
         }
 
         return view('product.index', compact(['products','query']));
-
-
     }
+
+    // public function addPhoto(Request $request)
+    // {
+    //
+    // }
 
     public function importData(Request $request)
     {
@@ -57,6 +61,7 @@ class ProductController extends Controller
       $file->move('csv', $name);
 
       Excel::load('public/csv/'.$name, function($reader){
+
         $reader->each(function($row){
 
           Product::create($row->all());
@@ -67,7 +72,7 @@ class ProductController extends Controller
       //message Done'
 
 
-      return redirect()->route('product.index');
+      #return redirect()->route('product.index');
     }
 
     public function exportData(Request $request)
@@ -98,6 +103,13 @@ class ProductController extends Controller
         return view('product.create');
     }
 
+    protected function makePhoto(UploadedFile $file)
+    {
+
+      return Photo::named($file->getClientOriginalName())
+      ->move($file);
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -106,36 +118,21 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        /*
-        $validator = Validator::make($data = Input::all(), Product::$rules);
-        if($validator->fails())
-        {
-          return redirect()->back()->withErrors($validator->errors())->withInput();
-        }
 
-
-        if( Input::hasFile('image_from_file'))
-        {
-          $image = Input::file('image_from_file');
-          $newFileName = time().'-'.$thumbnail->getClientOriginalName();
-          $image->move(storage_path().'/files/', $newFileName);
-          $product->image = $newFileName
-        }
-        if(Input::has('image_from_url') ) 텍스트가 있을경우
-        {
-
-        }
-        */
         $product = new Product;
-
+        $product->save();
 
         if( Input::hasFile('image_from_file'))
         {
-          $image = Input::file('image_from_file');
-          $newFileName = date( 'Y_m_d_H_i_s', time() ).'_'.$image->getClientOriginalName();
-          $image->move(storage_path().'/files/', $newFileName);
-          $product->image = $newFileName;
+
+          //Validation
+          $this->validate($request,[
+            'image_from_file' => 'jpg,jpeg,png,bmp,gif'
+            ]);
+
+          $photo = $this->makePhoto($request->file('image_from_file'));             //사진을 만들고 Photo모델의 move메서드에서 섬네일 리사이징
+          $product->addPhoto($photo);
+          $product->image = $photo->thumbnail_path;
         }
          $product->product_code  =Input::get('product_code');
          $product->price  =Input::get('price_china');
@@ -232,6 +229,18 @@ class ProductController extends Controller
         //  }
 
           # $product->update(Input::all());
+          if( Input::hasFile('image_from_file'))
+          {
+            //validate
+            $this->validate($request,[
+              'image_from_file' => 'jpg,jpeg,png,bmp,gif'
+              ]);
+
+            $photo = $this->makePhoto($request->file('image_from_file'));             //사진을 만들고 Photo모델의 move메서드에서 섬네일 리사이징
+            $product->addPhoto($photo);
+            $product->image = $photo->path;
+          }
+
           $product->product_code  =Input::get('product_code');
           $product->price  =Input::get('price_china');
           $product->price_krw  =Input::get('price_krw');
