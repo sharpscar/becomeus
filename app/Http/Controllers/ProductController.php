@@ -52,6 +52,10 @@ class ProductController extends Controller
     //
     // }
 
+    public function importPage(){
+      return view('product.importPage');
+    }
+
     public function importData(Request $request)
     {
       $file = $request->file('file');
@@ -126,9 +130,9 @@ class ProductController extends Controller
         {
 
           //Validation
-          $this->validate($request,[
-            'image_from_file' => 'jpg,jpeg,png,bmp,gif'
-            ]);
+          // $this->validate($request,[
+          //   'image_from_file' => 'jpg,jpeg,png,bmp,gif'
+          //   ]);
 
           $photo = $this->makePhoto($request->file('image_from_file'));             //사진을 만들고 Photo모델의 move메서드에서 섬네일 리사이징
           $product->addPhoto($photo);
@@ -232,9 +236,9 @@ class ProductController extends Controller
           if( Input::hasFile('image_from_file'))
           {
             //validate
-            $this->validate($request,[
-              'image_from_file' => 'jpg,jpeg,png,bmp,gif'
-              ]);
+            // $this->validate($request,[
+            //   'image_from_file' => 'jpg,jpeg,png,bmp,gif'
+            //   ]);
 
             $photo = $this->makePhoto($request->file('image_from_file'));             //사진을 만들고 Photo모델의 move메서드에서 섬네일 리사이징
             $product->addPhoto($photo);

@@ -35,7 +35,7 @@ class CreateProductsTable extends Migration
         $table->string('product_name');
         $table->string('description');
         $table->string('keyword');
-        $table->string('image');
+        $table->string('image')->nullable();
         $table->string('marketplaces')->nullable();
         $table->string('status');
         $table->string('added_time');

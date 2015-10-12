@@ -27,9 +27,7 @@ Route::get('/', function () {
 //
 // Route::post('login','UsersController@handleLogin');
 
-Route::get('/test', function(){
 
-});
 
 
 Route::resource('product','ProductController');
@@ -49,6 +47,8 @@ Route::post('auth/register', 'Auth\AuthController@postRegister');
 Route::controllers([
    'password' => 'Auth\PasswordController',
 ]);
+
+Route::get('importPage', 'ProductController@importPage');
 
 Route::post('importData','ProductController@importData');
 Route::get('exd','ProductController@exportData');

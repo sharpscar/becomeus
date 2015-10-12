@@ -10,7 +10,7 @@
 
   </div>
   <div class="col-sm-1">
-    <input type="button" name="name" class="btn btn-default" value="logout" onclick="window.location.href='/auth/logout'">
+
   </div>
 </div>
 
@@ -19,7 +19,7 @@
     <input type="button" style="margin-top:20px;" class="btn btn-default" name="name" value="상품등록" onclick="window.location.href='{{route('product.create') }}'" />
   </div>
 
-  <div class="col-sm-4">
+  <div class="col-sm-3">
 
   </div>
 
@@ -36,6 +36,7 @@
   </form> -->
 
   <div class="col-sm-5" >
+
     <!-- 검색 폼  -->
   <form class="form-inline" role="form"  method="get" id="search_form" style="text-align:right;">
     <div class="form-group" style="margin-top:20px;">
@@ -56,17 +57,25 @@
     </div>
   </form>
   </div>
-  <div class="col-sm-1">
+  <div class="col-sm-2">
     <?php echo $products->appends(['q'=>$query])->render(); ?>
   </div>
   <div class="col-sm-1">
-    <a href="exd" class="btn btn-default" style="margin-top:20px;">
-      <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true">&nbsp;csv</span>
-    </a>
+
+    <div class="dropdown">
+      <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="margin-top:20px;">
+        <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true">&nbsp;csv</span>
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+        <li><a href="/importPage">Import</a></li>
+        <li><a href="/exd">export</a></li>
+      </ul>
+    </div>
   </div>
 
 </div>
-
+<!-- low -->
 
 
 <table class="table table-striped">
@@ -122,7 +131,7 @@
       @foreach($arr as $key=>$value)
 
         @if($key=="image")
-          <td><img src="{{$value}}"  rel="noreferrer"/></td>
+          <td style="display: table-cell; text-align: center; vertical-align: middle; "><img src="{{$value}}" class="img_" rel="noreferrer" /></td>
         @elseif($key=="id")
           <!-- 키가 id인경우는 테이블에는 표시가 안되지만 value값을 사용해서 수정 / 삭제가 가능하게 유도해야한다. -->
 
@@ -172,39 +181,15 @@
 </table>
 
 
-<div class="row-fluid">
-  <br><br>
-  <h4>데이터 베이스에 넣을 csv 파일을 여기에 놓으세요</h4>
-  <hr>
-  <div class="col-sm-12">
-    <form id="addDataForm"class="dropzone" action="importData" method="post">
-      {{csrf_field()}}
-    </form>
-  </div>
-
-</div>
-
-
-
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.0.1/dropzone.js">
-
-</script>
-<script type="text/javascript">
-//   Dropzone.options.addDataForm={
-//   paramName:'data',
-//   maxFilesize:10,
-//   acceptedFiles:'.csv'
-// };
-
-
-</script>
 
 
 
 <style media="screen">
-    table.img{
-      width:10%;
-    }
+    /*table.img_{
+      display: table-cell;
+      text-align: center;
+      vertical-align: middle;
+    }*/
     .dropzone{
       height:10px;
     }

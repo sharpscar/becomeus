@@ -17,14 +17,15 @@
 //
 // });
 
-/* 리미트 구현 하려 했으나 라우트 관련 지식이 부족하여 다음으로 미룬다.*/
-  $("#sel_limit").on('change', function(){
-    var select = $(this);
-    var form = $("#search_form");
-    // alert(select.val());
-    // form.attr('action','/product?limit="+select.val())' );
-    form.submit();
-  });
+
+    $("#sel_limit").on('change', function(){
+      alert();
+      var select = $(this);
+      var form = $("#search_form");
+      // alert(select.val());
+      // form.attr('action','/product?limit="+select.val())' );
+      form.submit();
+    });
 
     function doSubmit(){
       getCheckboxValue();
@@ -116,31 +117,19 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Becomeus</a>
+      <a class="navbar-brand" href="/">Becomeus</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">product</a></li>
+        <li class="active"><a href="product">product</a></li>
         <li><a href="#">Orders</a></li>
         <li><a href="#">Purchase</a></li>
         <li><a href="#">Customer</a></li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-          <ul class="dropdown-menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
-            <li role="separator" class="divider"></li>
-            <li class="dropdown-header">Nav header</li>
-            <li><a href="#">Separated link</a></li>
-            <li><a href="#">One more separated link</a></li>
-          </ul>
-        </li>
+
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li class="active"><a href="./">Default <span class="sr-only">(current)</span></a></li>
-        <li><a href="#">Static top</a></li>
-        <li><a href="#">Fixed top</a></li>
+        <li><a href="#">account </a></li>
+        <li><a href="/auth/logout">Logout</a></li>
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container-fluid -->
