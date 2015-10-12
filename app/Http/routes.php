@@ -52,3 +52,10 @@ Route::get('importPage', 'ProductController@importPage');
 
 Route::post('importData','ProductController@importData');
 Route::get('exd','ProductController@exportData');
+
+
+Route::resource('orders','OrderController');
+// Route::get('orders', 'OrderController@index');
+// Route::get('orders/create', 'OrderController@create');
+// Route::get('orders/{id}', 'OrderController@show');
+// Route::post('orders', 'OrderController@store');
