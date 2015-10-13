@@ -8,13 +8,21 @@
   $(function(){
     $("#order_date").datepicker({
       changeMonth:true,
-      changeYear:true
+      changeYear:true,
+      dateFormat:'yy-mm-dd'
     });
 
     $("#delivery_date").datepicker({
       changeMonth:true,
-      changeYear:true
+      changeYear:true,
+      dateFormat:'yy-mm-dd'
     });
+
+    $("#quantity").on('change', function(){
+      //total 값 변경
+      $("#total").val($("#quantity").val()*$("#price").val());
+
+    })
   });
 </script>
 
@@ -78,13 +86,13 @@
                   {!! Form::text('size_color',null,['class'=>'form-control'])!!}
                 </td>
                 <td>
-                  {!! Form::text('price','0',['class'=>'form-control'])!!}
+                  {!! Form::text('price','10',['class'=>'form-control','id'=>'price','readonly'])!!}
                 </td>
                 <td>
-                  {!! Form::text('quantity','0',['class'=>'form-control'])!!}
+                  {!! Form::text('quantity','0',['class'=>'form-control','id'=>'quantity'])!!}
                 </td>
                 <td>
-                  {!! Form::text('total','0.00',['class'=>'form-control'])!!}
+                  {!! Form::text('total',null,['class'=>'form-control','id'=>'total','readonly'])!!}
                 </td>
                 <td>
                   {!! Form::text('sales_price',null,['class'=>'form-control'])!!}

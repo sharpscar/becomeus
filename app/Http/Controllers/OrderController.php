@@ -60,9 +60,9 @@ class OrderController extends Controller
         $this->registCustomer();
         */
         #return $request->all();
-        
+        #return Input::get('price');
         $order = new Order;
-
+        $order->save();                                                          //order_id를 얻기위해 저장함
         $customer = new Customer;
         $customer->first_name = Input::get('first_name');
         $customer->contact_email = Input::get('contact_email');
@@ -72,7 +72,11 @@ class OrderController extends Controller
         $customer->state = Input::get('state');
         $customer->zip = Input::get('zip');
         $customer->country = Input::get('country');
+        $customer->order_relationship = $order->id;
 
+        $order->market_place = Input::get('market_place');
+        $order->customer_name = Input::get('first_name') . Input::get('last_name'). '1@1.com';
+        $order->order_status = 'pending(defaultVal)';
         $order->product_name = Input::get('product_name');
         $order->size_color = Input::get('size_color');
         $order->price = Input::get('price');
