@@ -53,6 +53,8 @@ Route::get('importPage', 'ProductController@importPage');
 Route::post('importData','ProductController@importData');
 Route::get('exd','ProductController@exportData');
 
+Route::get('orders/autocomplete', 'ProductController@autocomplete');
+
 
 Route::resource('orders','OrderController');
 // Route::get('orders', 'OrderController@index');

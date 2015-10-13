@@ -1,7 +1,9 @@
 <?php namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Image;
+use DB;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Illuminate\Support\Facades\Validator;
@@ -112,6 +114,21 @@ class ProductController extends Controller
 
       return Photo::named($file->getClientOriginalName())
       ->move($file);
+    }
+
+    public function autocomplete()
+    {
+       $term = Input::get('term');
+      // $result= array();
+      $data = DB::table("products")->select('product_code','price')->where('product_code', 'LIKE', '%'.$term.'%')->get();
+
+
+      foreach($data as $code){
+
+      $results[]   = ['value'=>$code->product_code,'price'=>$code->price];
+      }
+      return \Response::json($results);
+
     }
 
     /**

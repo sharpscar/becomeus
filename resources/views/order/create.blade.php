@@ -2,8 +2,10 @@
 
 @section('content')
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.css">
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+
 <script type="text/javascript">
   $(function(){
     $("#order_date").datepicker({
@@ -22,7 +24,29 @@
       //total 값 변경
       $("#total").val($("#quantity").val()*$("#price").val());
 
-    })
+    });
+
+
+
+    $.ajaxSetup(
+      {
+        headers:{'X-CSRF-Token': $('input[name="_token"]').val()}
+      });
+
+    $("#product_name").autocomplete({
+      source:'autocomplete',
+      minLength:2,
+      select:function(event, ui){
+      //  $('#product_name').val(ui.item);
+        $("#product_name").on('blur', function(){
+          //alert($("#product_name").val());
+          $("#price").val(ui.item.price);
+        });
+      }
+    });
+
+
+
   });
 </script>
 
@@ -81,7 +105,7 @@
                 <th>Product </th><th>Size &amp;Color </th><th>Price </th><th>Quantity </th><th>Total </th><th>Sales Price </th>
               </tr>
               <tr>
-                <td>{!! Form::select('product_name',['select'=>'-Select-','array'=>'Array'],null,['class'=>'form-control'])!!}</td>
+                <td>{!! Form::text('product_name',null,['class'=>'form-control', 'id'=>'product_name'])!!}</td>
                 <td>
                   {!! Form::text('size_color',null,['class'=>'form-control'])!!}
                 </td>
