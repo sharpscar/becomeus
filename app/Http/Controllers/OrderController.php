@@ -64,7 +64,7 @@ class OrderController extends Controller
         $order = new Order;
         $order->save();                                                          //order_id를 얻기위해 저장함
         $customer = new Customer;
-        $customer->first_name = Input::get('first_name');
+        $customer->first_name = Input::get('first_name[]');
         $customer->contact_email = Input::get('contact_email');
         $customer->contact_number = Input::get('contact_number');
         $customer->street = Input::get('street');
