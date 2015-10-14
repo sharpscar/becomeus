@@ -29,6 +29,9 @@ class OrderController extends Controller
     public function index()
     {
         //
+
+        $order = Order::orderBy('order_date','desc')->get();
+        return view('order.index', compact('order'));
     }
 
     /**
@@ -64,7 +67,7 @@ class OrderController extends Controller
         $order = new Order;
         $order->save();                                                          //order_id를 얻기위해 저장함
         $customer = new Customer;
-        $customer->first_name = Input::get('first_name[]');
+        $customer->first_name = Input::get('first_name');
         $customer->contact_email = Input::get('contact_email');
         $customer->contact_number = Input::get('contact_number');
         $customer->street = Input::get('street');
@@ -129,7 +132,14 @@ class OrderController extends Controller
      */
     public function edit($id)
     {
-        //
+      $order = Order::findOrFail($id);
+      $customer_name = $order->customer_name;
+      $customer_name = substr($customer_name,0,strpos($customer_name, "1"));
+
+
+      $customer = Customer::where('first_name', $customer_name)->get();
+
+      return view('order.edit', compact('order','customer'));
     }
 
     /**
@@ -142,6 +152,19 @@ class OrderController extends Controller
     public function update(Request $request, $id)
     {
         //
+
+        $order = Order::findOrFail($id);
+
+        $order->size_color =  Input::get('size_color');
+        $order->quantity =  Input::get('quantity');
+        $order->sales_price =  Input::get('sales_price');
+        $order->notes =  Input::get('notes');
+
+        //고객정보는 바꿀필요없다.
+        $order->update($request->all());
+
+        return redirect()->route('orders.index');
+
     }
 
     /**
@@ -153,5 +176,8 @@ class OrderController extends Controller
     public function destroy($id)
     {
         //
+        Order::destroy($id);
+        return redirect()->route('orders.index');
+
     }
 }

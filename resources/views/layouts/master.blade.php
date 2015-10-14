@@ -121,8 +121,8 @@
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="product">product</a></li>
-        <li><a href="#">Orders</a></li>
+        <li class="active"><a href="/product">product</a></li>
+        <li><a href="/orders">Orders</a></li>
         <li><a href="#">Purchase</a></li>
         <li><a href="#">Customer</a></li>
 

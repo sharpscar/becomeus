@@ -33,25 +33,62 @@
     //     headers:{'X-CSRF-Token': $('input[name="_token"]').val()}
     //   });
 
-    $("#product_name").autocomplete({
-      source:'autocomplete',
-      minLength:2,
-      select:function(event, ui){
-      //  $('#product_name').val(ui.item);
-        $("#product_name").on('blur', function(){
-          //alert($("#product_name").val());
-          $("#price").val(ui.item.price);
-        });
-      }
+
+
+
+
+
+
+    $("#product_name").bind("focus", function(){
+      $(this).autocomplete({
+        source:'autocomplete',
+        minLength:2,
+        select:function(event, ui){
+        //  $('#product_name').val(ui.item);
+          $(this).on('blur', function(){
+            //alert($("#product_name").val());
+            $(this).parent().next().next().children().first().val(ui.item.price);
+          });
+        }
+      })
     });
 
+    $("#product_name_0").bind("click", function(){
+      alert();
+      $(this).autocomplete({
+        source:'autocomplete',
+        minLength:2,
+        select:function(event, ui){
+        //  $('#product_name').val(ui.item);
+          $(this).on('blur', function(){
+            //alert($("#product_name").val());
+            $(this).parent().next().next().children().first().val(ui.item.price);
+          });
+        }
+      });
+    });
+    $("#product_name_1").bind("focus", function(){
+      $(this).autocomplete({
+        source:'autocomplete',
+        minLength:2,
+        select:function(event, ui){
+        //  $('#product_name').val(ui.item);
+          $(this).on('blur', function(){
+            //alert($("#product_name").val());
+            $(this).parent().next().next().children().first().val(ui.item.price);
+          });
+        }
+      });
+    });
 
+    var cnt=0;
 
     //추가 버튼 클릭시
     $("#addItemBtn").click(function(e){
 
       e.preventDefault();
-
+      cnt = $(".tr_flag").length;
+      alert(cnt);
                // item 의 최대번호 구하기
               //  var lastItemNo = $("#example tr:last").attr("class").replace("item", "");
                //
@@ -65,13 +102,13 @@
 
 
               //clone
-              $.trClone = $("#memberTable tr:last").clone().html();
-              $.newTr =   $("<tr>"+$.trClone+"</tr>");
+              $.trClone = $("#memberTable tr:last").clone(true).html();
+              $.newTr =   $("<tr class='tr_flag'>"+$.trClone+"</tr>");
 
               //  var lastItemNo = $("#memberTable tr:last").attr("class").replace("item","");
 
-              $.newTr.find("#product_name").attr("id","product_name");
-              $.newTr.find("#price").attr("id","price");
+               $.newTr.find(".pn").attr("id","product_name_"+cnt);
+
               //append
               $("#memberTable").append($.newTr);
 
@@ -185,8 +222,8 @@
 
 
 
-                  <tr class="item1">
-                    <td>{!! Form::text('product_name[]',null,['class'=>'form-control', 'id'=>'product_name'])!!}</td>
+                  <tr>
+                    <td>{!! Form::text('product_name',null,['class'=>'form-control pn', 'id'=>'product_name' ])!!}</td>
                     <td>
                       {!! Form::text('size_color',null,['class'=>'form-control'])!!}
                     </td>
