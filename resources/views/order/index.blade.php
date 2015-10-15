@@ -11,7 +11,7 @@
 
     <table class="table table-striped">
       <tr>
-        <th>id</th>
+        <th>E/D</th>
         <th>Order Date</th>
         <th>Products</th>
         <th>Grand Total</th>

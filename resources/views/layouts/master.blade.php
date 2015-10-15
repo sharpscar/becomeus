@@ -121,15 +121,20 @@
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="/product">product</a></li>
+        <li><a href="/product">product</a></li>
         <li><a href="/orders">Orders</a></li>
         <li><a href="#">Purchase</a></li>
         <li><a href="#">Customer</a></li>
 
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">account </a></li>
+
+        @if(Auth::check())
+        <li><a href="#">hello! &nbsp;{{Auth::user()->name}} </a></li>
         <li><a href="/auth/logout">Logout</a></li>
+        @else
+        <li><a href="/auth/login">Login</a></li>
+        @endif
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container-fluid -->

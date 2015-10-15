@@ -37,10 +37,10 @@
 
 
 
+run();
+    function run(){
+    $(".pn").autocomplete({
 
-
-    $("#product_name").bind("focus", function(){
-      $(this).autocomplete({
         source:'autocomplete',
         minLength:2,
         select:function(event, ui){
@@ -49,37 +49,38 @@
             //alert($("#product_name").val());
             $(this).parent().next().next().children().first().val(ui.item.price);
           });
-        }
-      })
-    });
-
-    $("#product_name_0").bind("click", function(){
-      alert();
-      $(this).autocomplete({
-        source:'autocomplete',
-        minLength:2,
-        select:function(event, ui){
-        //  $('#product_name').val(ui.item);
-          $(this).on('blur', function(){
-            //alert($("#product_name").val());
-            $(this).parent().next().next().children().first().val(ui.item.price);
-          });
+          return false;
         }
       });
-    });
-    $("#product_name_1").bind("focus", function(){
-      $(this).autocomplete({
-        source:'autocomplete',
-        minLength:2,
-        select:function(event, ui){
-        //  $('#product_name').val(ui.item);
-          $(this).on('blur', function(){
-            //alert($("#product_name").val());
-            $(this).parent().next().next().children().first().val(ui.item.price);
-          });
-        }
-      });
-    });
+    }
+    //
+    // $("#product_name_0").bind("click", function(){
+    //   alert();
+    //   $(this).autocomplete({
+    //     source:'autocomplete',
+    //     minLength:2,
+    //     select:function(event, ui){
+    //     //  $('#product_name').val(ui.item);
+    //       $(this).on('blur', function(){
+    //         //alert($("#product_name").val());
+    //         $(this).parent().next().next().children().first().val(ui.item.price);
+    //       });
+    //     }
+    //   });
+    // });
+    // $("#product_name_1").bind("focus", function(){
+    //   $(this).autocomplete({
+    //     source:'autocomplete',
+    //     minLength:2,
+    //     select:function(event, ui){
+    //     //  $('#product_name').val(ui.item);
+    //       $(this).on('blur', function(){
+    //         //alert($("#product_name").val());
+    //         $(this).parent().next().next().children().first().val(ui.item.price);
+    //       });
+    //     }
+    //   });
+    // });
 
     var cnt=0;
 
@@ -87,17 +88,8 @@
     $("#addItemBtn").click(function(e){
 
       e.preventDefault();
-      cnt = $(".tr_flag").length;
-      alert(cnt);
-               // item 의 최대번호 구하기
-              //  var lastItemNo = $("#example tr:last").attr("class").replace("item", "");
-               //
-              //  var newitem = $("#example tr:eq(1)").clone();
-              //  newitem.removeClass();
-              //  newitem.find("td:eq(0)").attr("rowspan", "1");
-              //  newitem.addClass("item"+(parseInt(lastItemNo)+1));
-              //  newitem.find("#product_name").attr("id","product_name"+(parseInt(lastItemNo)+1));
-              //  $("#example").append(newitem);
+      //cnt = $(".tr_flag").length +1;
+      //alert(cnt);
 
 
 
@@ -107,7 +99,7 @@
 
               //  var lastItemNo = $("#memberTable tr:last").attr("class").replace("item","");
 
-               $.newTr.find(".pn").attr("id","product_name_"+cnt);
+               //$.newTr.find(".pn").attr("id","product_name_"+cnt); //+cnt
 
               //append
               $("#memberTable").append($.newTr);
@@ -118,7 +110,7 @@
                 name:"btnRemove",
                 type:"button",
                 class:"btn btn-danger",
-                value:"삭제"
+                value:"-"
               });
 
               $("#memberTable tr:last td:last").html("");
@@ -127,6 +119,12 @@
               $("#memberTable tr>td:last>input[type='button']").on('click', function(){
                 $(this).parent().parent().remove();
               });
+
+              $(".pn").each(function(){
+                run();
+              });
+
+              return false;
 
            });
 
@@ -223,7 +221,7 @@
 
 
                   <tr>
-                    <td>{!! Form::text('product_name',null,['class'=>'form-control pn', 'id'=>'product_name' ])!!}</td>
+                    <td>{!! Form::text('product_name',null,['class'=>'form-control pn', 'id'=>'product_name_0' ])!!}</td>
                     <td>
                       {!! Form::text('size_color',null,['class'=>'form-control'])!!}
                     </td>
