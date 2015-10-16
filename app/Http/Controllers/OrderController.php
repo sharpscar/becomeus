@@ -11,15 +11,11 @@ use App\Order;
 
 class OrderController extends Controller
 {
-    public function registProduct()
-    {
 
-    }
-
-    public function registCustomer()
-    {
-
-    }
+  public function __construct()
+  {
+    $this->middleware('auth');
+  }
 
     /**
      * Display a listing of the resource.
@@ -30,7 +26,7 @@ class OrderController extends Controller
     {
         //
 
-        $order = Order::orderBy('order_date','desc')->get();
+        $order = Order::orderBy('order_date','desc')->paginate(10);
         return view('order.index', compact('order'));
     }
 
@@ -76,11 +72,10 @@ class OrderController extends Controller
         $customer->zip = Input::get('zip');
         $customer->country = Input::get('country');
         $customer->order_relationship = $order->id;
-
         $order->market_place = Input::get('market_place');
-        $order->customer_name = Input::get('first_name') . Input::get('last_name'). '1@1.com';
+        $order->customer_name = Input::get('first_name') . Input::get('last_name'). ' - 1@1.com';
         $order->order_status = 'pending(defaultVal)';
-        $order->product_name = Input::get('product_name');
+        $order->product_name = implode(",", Input::get('product_name'));
         $order->size_color = Input::get('size_color');
         $order->price = Input::get('price');
         $order->quantity = Input::get('quantity');
@@ -88,7 +83,7 @@ class OrderController extends Controller
         $order->sales_price = Input::get('sales_price');
         $order->sales_owner = Input::get('sales_owner');
         $order->order_date = Input::get('order_date');
-        $order->product_name = Input::get('product_name');
+
         $order->notes = Input::get('notes');
         $order->sub_total = Input::get('sub_total');
         $order->vat = Input::get('vat');
@@ -98,18 +93,11 @@ class OrderController extends Controller
         $order->delivery_agency = Input::get('delivery_agency');
         $order->track_number = Input::get('track_number');
 
-        $customer->save();
+
         $order->save();
+        $customer->save();
 
         return redirect()->route('orders.index');
-
-
-        // 1. 받아온 값들중에 customer값은 customer를 새로생성하고 거기에서 저장한다.
-
-
-        // 2. 받아온 값들중에 product의 값은 product를 새로 생성하고 거기에 저장한다.
-
-        //3. 둘다 저장이 잘 되었을 경우 생성된 customer_name과 product_name을   나머지 값들과 함께 저장한다.
 
     }
 
@@ -134,7 +122,12 @@ class OrderController extends Controller
     {
       $order = Order::findOrFail($id);
       $customer_name = $order->customer_name;
-      $customer_name = substr($customer_name,0,strpos($customer_name, "1"));
+
+
+      //Liu Zhao Wen - 1@1.com
+
+      $customer_name = substr($customer_name,0,strpos($customer_name, "-")-1);
+
 
 
       $customer = Customer::where('first_name', $customer_name)->get();

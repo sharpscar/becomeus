@@ -49,38 +49,17 @@ run();
             //alert($("#product_name").val());
             $(this).parent().next().next().children().first().val(ui.item.price);
           });
-          return false;
+
+          //마우스 클릭만 하면 제대로 값이 들어가지 않는 현상 보정
+          var origEvent = event;
+          while(origEvent.originalEvent !== undefined)
+            origEvent = origEvent.originalEvent;
+            if(origEvent.type=='keydown')
+              $(".pn").click();
+          //return false;
         }
       });
     }
-    //
-    // $("#product_name_0").bind("click", function(){
-    //   alert();
-    //   $(this).autocomplete({
-    //     source:'autocomplete',
-    //     minLength:2,
-    //     select:function(event, ui){
-    //     //  $('#product_name').val(ui.item);
-    //       $(this).on('blur', function(){
-    //         //alert($("#product_name").val());
-    //         $(this).parent().next().next().children().first().val(ui.item.price);
-    //       });
-    //     }
-    //   });
-    // });
-    // $("#product_name_1").bind("focus", function(){
-    //   $(this).autocomplete({
-    //     source:'autocomplete',
-    //     minLength:2,
-    //     select:function(event, ui){
-    //     //  $('#product_name').val(ui.item);
-    //       $(this).on('blur', function(){
-    //         //alert($("#product_name").val());
-    //         $(this).parent().next().next().children().first().val(ui.item.price);
-    //       });
-    //     }
-    //   });
-    // });
 
     var cnt=0;
 
@@ -221,7 +200,7 @@ run();
 
 
                   <tr>
-                    <td>{!! Form::text('product_name',null,['class'=>'form-control pn', 'id'=>'product_name_0' ])!!}</td>
+                    <td>{!! Form::text('product_name[]',null,['class'=>'form-control pn', 'id'=>'product_name_0' ])!!}</td>
                     <td>
                       {!! Form::text('size_color',null,['class'=>'form-control'])!!}
                     </td>

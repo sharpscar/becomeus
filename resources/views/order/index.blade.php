@@ -4,9 +4,23 @@
 
   <h2>All Orders</h2>
 
+<div class="row-fluid">
+
+ <div class="col-sm-2">
+  <input type="button" style="margin-top:20px;" class="btn btn-default" name="name" value="주문등록" onclick="window.location.href='{{route('orders.create') }}'" />
+ </div>
+ <div class="col-sm-3">
+
+  </div>
+  <div class="col-sm-7" style="text-align:right">
+  <?php echo $order->render(); ?>
+   </div>
+
+
+
+</div>
   <div class="row-fluid">
 
-    <input type="button" style="margin-top:20px;" class="btn btn-default" name="name" value="주문등록" onclick="window.location.href='{{route('orders.create') }}'" />
 
 
     <table class="table table-striped">
@@ -46,13 +60,15 @@
         @foreach($arr as $key=>$value)
           <td>
             @if($key=="id")
-            {!!Form::open(['method'=>'DELETE', 'route'=>['orders.destroy',$arr_dot['id']], 'onsubmit'=>'return confirmDelete()']  ) !!}
-            <a href="{{ route('orders.edit',$arr_dot['id']) }}" class="btn btn-default">수정</a>
+            {!!Form::open(['method'=>'DELETE', 'route'=>['orders.destroy',$value], 'onsubmit'=>'return confirmDelete()']  ) !!}
+            <a href="{{ route('orders.edit',$value) }}" class="btn btn-default">수정</a>
             <input type="hidden" name="_token" value="{{csrf_token()}}">
             <input type="hidden" name="_method" value="delete">
 
             <input type="submit" name="" class="btn btn-default" value="삭제">
 
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            {!!Form::close()!!}
             @else
             {{$value}}
             @endif
@@ -71,6 +87,7 @@
     function confirmDelete(){
        var x = confirm("Are you sure you want to delete?");
        if(x)
+
         return true;
       else {
         return false;
