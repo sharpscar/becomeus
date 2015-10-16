@@ -69,6 +69,25 @@
 
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             {!!Form::close()!!}
+            @elseif($key=="product_name")
+
+              @if(strpos($value,","))
+                <?= str_replace(",", "<br>",$value) ?>
+              @else
+                  {{$value}}
+              @endif
+            <!--만약 값이 여러개라면- = ,를 가지고 있다면
+            ,를 <br>로 replace를 하시오!
+
+
+
+            나중에 이걸 <a> </a>를 추가하여 href 속성에 특정 라우트로 action과
+            argument (product_name)을 넘기게되면 그걸 받는 route는
+            상세 페이지를 꾸며 놓겠지 그럼 나는 꾸며진 상세 페이지를 모달로 띄울꺼야
+
+
+            -->
+
             @else
             {{$value}}
             @endif

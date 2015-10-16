@@ -122,14 +122,9 @@ class OrderController extends Controller
     {
       $order = Order::findOrFail($id);
       $customer_name = $order->customer_name;
-
-
       //Liu Zhao Wen - 1@1.com
 
       $customer_name = substr($customer_name,0,strpos($customer_name, "-")-1);
-
-
-
       $customer = Customer::where('first_name', $customer_name)->get();
 
       return view('order.edit', compact('order','customer'));

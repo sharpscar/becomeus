@@ -375,11 +375,11 @@
   <div class="row-fluid">
     <div class="form-group">
       <div class="col-sm-2 col-lg-2">
-          <label for="dimension">Dimension <font color="#ec3e3e">*</font></label>
+          <label for="demension">Dimension <font color="#ec3e3e">*</font></label>
       </div>
       <div class="col-sm-3 col-lg-2">
 
-        <textarea name="dimension" rows="3" cols="40" style="width:240px" required></textarea>
+        <textarea name="demension" rows="3" cols="40" style="width:240px" required></textarea>
       </div>
     </div>
 

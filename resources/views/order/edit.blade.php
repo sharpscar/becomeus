@@ -69,9 +69,6 @@
         <tr>
           <th>Product </th><th>Size &amp;Color </th><th>Price </th><th>Quantity </th><th>Total </th><th>Sales Price </th><th>remove</th>
         </tr>
-
-
-
             <tr>
               <td>{!! Form::text('product_name',null,['class'=>'form-control pn', 'id'=>'product_name' ])!!}</td>
               <td>
@@ -92,18 +89,8 @@
               <td>
 
               </td>
-
-
             </tr>
-
-
-
-
-
-
       </table>
-
-
   </div>
 
   <div class="form-group">

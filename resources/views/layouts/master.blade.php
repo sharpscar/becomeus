@@ -28,31 +28,33 @@
     });
 
     function doSubmit(){
-      getCheckboxValue();
-      if(getCheckImageUpload()){
-          $('#productForm').submit();
-      }
+       getCheckboxValue();
+       $('#productForm').submit();
+      // if(getCheckImageUpload()){
+      //     $('#productForm').submit();
+      // }
     }
 
-    function getCheckImageUpload(){
-
-      //이미지가 있을경우
-      if( $("#image_from_file").val() != "" ){
-        var ext = $('#image_from_file').val().split('.').pop().toLowerCase();
-        //var _switch = true;
-        if($.inArray(ext, ['gif','png','jpg','jpeg']) == -1) {
-	       alert('gif,png,jpg,jpeg 파일만 업로드 할수 있습니다.');
-          document.forms[0].image_from_file.focus();
-          return 0;
-        }else{
-          return 1;
-        }
-      }else{
-        //이미지가 없을경우
-        return 1;
-      }
-
-    }
+    // function getCheckImageUpload(){
+    //
+    //
+    //   //이미지가 있을경우
+    //   if( $("#image_from_file").val() != "" ){
+    //     var ext = $('#image_from_file').val().split('.').pop().toLowerCase();
+    //     //var _switch = true;
+    //     if($.inArray(ext, ['gif','png','jpg','jpeg']) == -1) {
+	  //      alert('gif,png,jpg,jpeg 파일만 업로드 할수 있습니다.');
+    //       document.forms[0].image_from_file.focus();
+    //       return 0;
+    //     }else{
+    //       return 1;
+    //     }
+    //   }else{
+    //     //이미지가 없을경우
+    //     return 1;
+    //   }
+    //
+    // }
 
 
     /** 체크 박스의 내용을 모아서 값, 값, 값, 이런형식의 문자열로 값을 형성한다. **/
@@ -88,6 +90,7 @@
           }
 
       }
+
         $('input[name=marketplaces]').attr('value', rowValues);
 
     }

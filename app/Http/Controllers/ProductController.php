@@ -165,7 +165,7 @@ class ProductController extends Controller
          $product->variation  =Input::get('variation');
          $product->color  =Input::get('color');
          $product->weight  =Input::get('weight');
-         $product->dimension  =Input::get('dimension');
+         $product->demension  =Input::get('demension');
          $product->material_china  =Input::get('material_china');
          $product->material_english  =Input::get('material_english');
          $product->product_name  =Input::get('product_name');
@@ -230,7 +230,7 @@ class ProductController extends Controller
 
          #$product->product_code = Input::get('product_code');
 
-         $data = Input::all();
+         #$data = Input::all();
 
         //  $rules = array(
         //    'business_group'=>'required',
@@ -259,8 +259,11 @@ class ProductController extends Controller
 
             $photo = $this->makePhoto($request->file('image_from_file'));             //사진을 만들고 Photo모델의 move메서드에서 섬네일 리사이징
             $product->addPhoto($photo);
-            $product->image = $photo->path;
+            $product->image = $photo->thumbnail_path;
           }
+
+          $product->marketplaces  = implode(",",Input::get('marketplaces'));
+          // $product->update($request->all());
 
           $product->product_code  =Input::get('product_code');
           $product->price  =Input::get('price_china');
@@ -272,7 +275,7 @@ class ProductController extends Controller
           $product->variation  =Input::get('variation');
           $product->color  =Input::get('color');
           $product->weight  =Input::get('weight');
-          $product->dimension  =Input::get('dimension');
+          $product->demension  =Input::get('demension');
           $product->material_china  =Input::get('material_china');
           $product->material_english  =Input::get('material_english');
           $product->product_name  =Input::get('product_name');
@@ -280,7 +283,7 @@ class ProductController extends Controller
           $product->keyword  =Input::get('keyword');
           $product->business_group  =Input::get('business_group');
           $product->product_group  =Input::get('product_group');
-          $product->marketplaces =Input::get('marketplaces');
+          // $product->marketplaces =Input::get('marketplaces');
           $product->stock  =Input::get('stock');
           $product->supplier  =Input::get('supplier');
           $product->added_time  = date( 'Y-m-d H:i:s', time() );
