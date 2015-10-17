@@ -55,6 +55,7 @@ Route::get('exd','ProductController@exportData');
 
 
 Route::get('orders/autocomplete', 'ProductController@autocomplete');
+Route::get('orders/{id}/autocomplete', 'ProductController@autocomplete');
 
 Route::resource('orders','OrderController');
 // Route::get('orders', 'OrderController@index');

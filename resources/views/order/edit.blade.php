@@ -1,7 +1,10 @@
 @extends('layouts.master')
 
 @section('content')
-
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.css">
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
   @foreach($customer as $key=>$values)
 <?php
 
@@ -12,7 +15,6 @@
 
 <h1>edit</h1>
 
-
 <div class="container">
   <div class="row">
     <div class="span8">
@@ -22,42 +24,93 @@
 
 
 
-  <div class="form-group">
-    <h4>Add Customer</h4>
-    <table class="table col-sm-12">
-      <tr>
-        <th>Frist Name</th><th>Contact email</th><th>Contact phone</th><th>Street</th><th>City</th><th>State</th><th>Zip code</th><th>Country</th>
-      </tr>
-      <tr>
 
-        <td>
-          {!! Form::text('first_name',$customer['first_name'],['class'=>'form-control']) !!}
-        </td>
-        <td>
-          {!! Form::text('contact_email',$customer['contact_email'],['class'=>'form-control']) !!}
-        </td>
-        <td>
-          {!! Form::text('contact_number',$customer['contact_number'],['class'=>'form-control']) !!}
-        </td>
-        <td>
-          {!! Form::text('street',$customer['street'],['class'=>'form-control']) !!}
-        </td>
-        <td>
-          {!! Form::text('city',$customer['city'],['class'=>'form-control']) !!}
-        </td>
-        <td>
-          {!! Form::text('state',$customer['state'],['class'=>'form-control']) !!}
-        </td>
-        <td>
-          {!! Form::text('zip',$customer['zip'],['class'=>'form-control']) !!}
-        </td>
-        <td>
-          {!! Form::text('country',$customer['country'],['class'=>'form-control']) !!}
-        </td>
-      </tr>
+<div class="form-group">
+  <h4>Add Customer</h4>
+  <div class="row">
+    <div class="col-sm-6">
 
-    </table>
+      <div class=" form-inline">
+        {!! Form::label('first_name','First Name : ',['class'=>'control-label col-sm-5'])!!}
+
+        {!! Form::text('first_name',$customer['first_name'],['class'=>'form-control col-sm-7', 'style'=>'width:55%'  ]) !!}
+      </div>
+    </div>
+
+    <div class="col-sm-6">
+        <div class="form-inline">
+        {!! Form::label('contact_email','Contact Email : ',['class'=>'control-label col-sm-5'])!!}
+
+        {!! Form::text('contact_email',$customer['contact_email'],['class'=>'form-control col-sm-7', 'style'=>'width:55%']) !!}
+        </div>
+    </div>
   </div>
+
+  <div class="row">
+    <div class="col-sm-6">
+      {!! Form::label('country','Country : ',['class'=>'control-label col-sm-5'])!!}
+
+      {!! Form::text('country',$customer['country'],['class'=>'form-control col-sm-7', 'style'=>'width:55%']) !!}
+
+      <div class=" form-inline">
+
+      </div>
+    </div>
+
+    <div class="col-sm-6">
+        <div class="form-inline">
+        {!! Form::label('contact_number','Contact Number : ',['class'=>'control-label col-sm-5'])!!}
+
+        {!! Form::text('contact_number',$customer['contact_number'],['class'=>'form-control col-sm-7', 'style'=>'width:55%']) !!}
+        </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-6">
+
+      <div class=" form-inline">
+        {!! Form::label('street','Street : ',['class'=>'control-label col-sm-5'])!!}
+
+        {!! Form::text('street',$customer['street'],['class'=>'form-control col-sm-7', 'style'=>'width:55%'  ]) !!}
+
+      </div>
+    </div>
+
+    <div class="col-sm-6">
+        <div class="form-inline">
+        {!! Form::label('city','City : ',['class'=>'control-label col-sm-5'])!!}
+
+        {!! Form::text('city',$customer['city'],['class'=>'form-control col-sm-7', 'style'=>'width:55%']) !!}
+        </div>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-sm-6">
+
+      <div class=" form-inline">
+        {!! Form::label('state','State : ',['class'=>'control-label col-sm-5'])!!}
+
+        {!! Form::text('state',$customer['state'],['class'=>'form-control col-sm-7', 'style'=>'width:55%'  ]) !!}
+      </div>
+    </div>
+
+    <div class="col-sm-6">
+        <div class="form-inline">
+        {!! Form::label('zip','Zip : ',['class'=>'control-label col-sm-5'])!!}
+
+        {!! Form::text('zip',$customer['zip'],['class'=>'form-control col-sm-7', 'style'=>'width:55%']) !!}
+        </div>
+    </div>
+  </div>
+
+</div>
+
+
+
+
 
 
 
@@ -103,7 +156,7 @@
   <div class="form-group">
     {!! Form::label('market_place','Market place : ',['class'=>'control-label col-sm-2'])!!}
     <div class="col-sm-6 ">
-        {!! Form::select('market_place',['select'=>'-Select-','amazone.com'=>'Amazone.com','amazone.uk'=>'Amazone.uk','maxstarstore'=>'Maxstarstore','ebay'=>'Ebay','other'=>'Other'],null,['class'=>'form-control','style'=>'width:35%']) !!}
+        {!! Form::select('market_place',['select'=>'-Select-','amazone.com'=>'Amazone.com','amazone.uk'=>'Amazone.uk','maxstarstore'=>'Maxstarstore','Aliexpress'=>'Aliexpress','Taobao'=>'Taobao','ebay'=>'Ebay','other'=>'Other'],null,['class'=>'form-control','style'=>'width:35%']) !!}
     </div>
   </div>
 
@@ -117,7 +170,7 @@
   <div class="form-group form-inline">
     {!! Form::label('notes','Notes : ',['class'=>'control-label col-sm-2'])!!}
     <div class="col-sm-10">
-            {!! Form::text('notes','Size or Color',['class'=>'form-control']) !!}
+            {!! Form::text('notes',null,['class'=>'form-control','placeholder'=>'size or color']) !!}
     </div>
   </div>
 
@@ -162,7 +215,7 @@
 
     {!! Form::label('delivery_agency','Delivery Agency : ',['class'=>'control-label col-sm-2'])!!}
     <div class="col-sm-6 ">
-        {!! Form::select('delivery_agency',['select'=>'-Select-','fedex'=>'FedEx','ems'=>'EMS','k-packet'=>'K-Packet'],null,['class'=>'form-control', 'style'=>'width:35%']) !!}
+        {!! Form::select('delivery_agency',['select'=>'-Select-','Fedex'=>'FedEx','EMS'=>'EMS','SFexpress'=>'SFexpress','k-packet'=>'K-Packet'],null,['class'=>'form-control', 'style'=>'width:35%']) !!}
     </div>
   </div>
 
@@ -175,10 +228,98 @@
 </div>
 
 <hr>
-{!!Form::submit('save',['class'=>'btn btn-default'])!!}{!!Form::reset('Reset',['class'=>'btn btn-default'])!!}
-
+{!!Form::submit('save',['class'=>'btn btn-default'])!!}
+<!-- {!!Form::reset('Reset',['class'=>'btn btn-default'])!!} -->
+<a href="{{ URL::previous() }}" class="btn btn-default">return</a>
 {!!Form::close() !!}
 </div>
 </div>
+<script type="text/javascript">
+  $(function(){
+    $("#order_date").datepicker({
+      changeMonth:true,
+      changeYear:true,
+      dateFormat:'yy-mm-dd'
+    });
+
+    $("#delivery_date").datepicker({
+      changeMonth:true,
+      changeYear:true,
+      dateFormat:'yy-mm-dd'
+    });
+
+    $("#quantity").on('change', function(){
+      //total 값 변경
+      $("#total").val($("#quantity").val()*$("#price").val());
+
+    });
+run();
+    function run(){
+    $(".pn").autocomplete({
+
+        source:'autocomplete',
+        minLength:2,
+        select:function(event, ui){
+        //  $('#product_name').val(ui.item);
+          $(this).on('blur', function(){
+            //alert($("#product_name").val());
+            $(this).parent().next().next().children().first().val(ui.item.price);
+          });
+
+          //마우스 클릭만 하면 제대로 값이 들어가지 않는 현상 보정
+          var origEvent = event;
+          while(origEvent.originalEvent !== undefined)
+            origEvent = origEvent.originalEvent;
+            if(origEvent.type=='keydown')
+              $(".pn").click();
+          //return false;
+        }
+      });
+    }
+
+    var cnt=0;
+
+    //추가 버튼 클릭시
+    $("#addItemBtn").click(function(e){
+
+      e.preventDefault();
+      //cnt = $(".tr_flag").length +1;
+      //alert(cnt);
+              //clone
+              $.trClone = $("#memberTable tr:last").clone(true).html();
+              $.newTr =   $("<tr class='tr_flag'>"+$.trClone+"</tr>");
+
+              //  var lastItemNo = $("#memberTable tr:last").attr("class").replace("item","");
+
+               //$.newTr.find(".pn").attr("id","product_name_"+cnt); //+cnt
+
+              //append
+              $("#memberTable").append($.newTr);
+
+              //delete Button추가
+              $.btnDelete = $(document.createElement("input"));
+              $.btnDelete.attr({
+                name:"btnRemove",
+                type:"button",
+                class:"btn btn-danger",
+                value:"-"
+              });
+
+              $("#memberTable tr:last td:last").html("");
+              $("#memberTable tr:last td:last").append($.btnDelete);
+
+              $("#memberTable tr>td:last>input[type='button']").on('click', function(){
+                $(this).parent().parent().remove();
+              });
+
+              $(".pn").each(function(){
+                run();
+              });
+
+              return false;
+
+           });
+  });
+</script>
 
 @stop

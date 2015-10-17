@@ -19,21 +19,29 @@
       changeYear:true,
       dateFormat:'yy-mm-dd'
     });
-
+// #quantity_1, #quantity_2, #quantity_3, #quantity_4, #quantity_5
     $("#quantity").on('change', function(){
       //total 값 변경
       $("#total").val($("#quantity").val()*$("#price").val());
-
     });
 
-
-    //
-    // $.ajaxSetup(
-    //   {
-    //     headers:{'X-CSRF-Token': $('input[name="_token"]').val()}
-    //   });
-
-
+    $("#quantity_1").on('change', function(){
+      //total 값 변경
+      $("#total_1").val($("#quantity_1").val()*$("#price_1").val());
+      alert('값변경');
+    });
+    $("#quantity_2").on('change', function(){
+      //total 값 변경
+      $("#total_2").val($("#quantity_2").val()*$("#price_2").val());
+    });
+    $("#quantity_3").on('change', function(){
+      //total 값 변경
+      $("#total_3").val($("#quantity_3").val()*$("#price_3").val());
+    });
+    $("#quantity_4").on('change', function(){
+      //total 값 변경
+      $("#total_4").val($("#quantity_4").val()*$("#price_4").val());
+    });
 
 
 
@@ -67,17 +75,19 @@ run();
     $("#addItemBtn").click(function(e){
 
       e.preventDefault();
-      //cnt = $(".tr_flag").length +1;
-      //alert(cnt);
-
-
-
+      cnt = $(".tr_flag").length +1;
+      alert(cnt);
               //clone
               $.trClone = $("#memberTable tr:last").clone(true).html();
               $.newTr =   $("<tr class='tr_flag'>"+$.trClone+"</tr>");
 
               //  var lastItemNo = $("#memberTable tr:last").attr("class").replace("item","");
 
+
+              //$("#total").val($("#quantity").val()*$("#price").val());
+              $.newTr.find("#total").attr("id","total_"+cnt);
+              $.newTr.find("#quantity").attr("id","quantity_"+cnt);
+              $.newTr.find("#price").attr("id","price_"+cnt);
                //$.newTr.find(".pn").attr("id","product_name_"+cnt); //+cnt
 
               //append
@@ -106,43 +116,12 @@ run();
               return false;
 
            });
-
-
-
-
-    //삭제버튼클릭시
-
-
-
-    // var max_fields = 10;
-    // var wrapper = $(".input_fields_wrap");
-    // var add_button = $(".add_fields_button");
-    //
-    // var x =1;
-    // $(add_button).click(function(e){
-    //   e.preventDefault();
-    //   if(x<max_fields){
-    //     x++;
-    //     var str = '<div><tr><td>{!! Form::text("product_name[]",null,["class"=>"form-control", "id"=>"product_name"])!!}</td><td>{!! Form::text("size_color",null,["class"=>"form-control"])!!}</td><td>{!! Form::text("price","0",["class"=>"form-control","id"=>"price","readonly"])!!}</td><td>{!! Form::text("quantity","0",["class"=>"form-control","id"=>"quantity"])!!}</td><td>{!! Form::text("total",null,["class"=>"form-control","id"=>"total","readonly"])!!}</td><td>{!! Form::text("sales_price",null,["class"=>"form-control"])!!}</td></tr><a href="#" class="remove_field">Remove</a></div>';
-    //     $(wrapper).prepend(str);
-    //   };
-    //
-    // });
-    //
-    // $(wrapper).on("click",".remove_field", function(e){
-    //   e.preventDefault();
-    //   $(this).parent('div').remove();
-    //   x--;
-    // })
-
-
-
   });
 </script>
 
 <div class="container">
   <div class="row">
-    <div class="span8">
+
       <h2>New Order</h2>
       {!!Form::open(['method'=>'POST', 'url'=>'orders','class'=>'form-horizontal']) !!}
       {!! csrf_field() !!}
@@ -151,40 +130,92 @@ run();
 
         <div class="form-group">
           <h4>Add Customer</h4>
-          <table class="table col-sm-12">
-            <tr>
-              <th>Frist Name</th><th>Contact email</th><th>Contact phone</th><th>Street</th><th>City</th><th>State</th><th>Zip code</th><th>Country</th>
-            </tr>
-            <tr>
+          <div class="row">
+            <div class="col-sm-6">
 
-              <td>
-                {!! Form::text('first_name',null,['class'=>'form-control']) !!}
-              </td>
-              <td>
-                {!! Form::text('contact_email',null,['class'=>'form-control']) !!}
-              </td>
-              <td>
-                {!! Form::text('contact_number',null,['class'=>'form-control']) !!}
-              </td>
-              <td>
-                {!! Form::text('street',null,['class'=>'form-control']) !!}
-              </td>
-              <td>
-                {!! Form::text('city',null,['class'=>'form-control']) !!}
-              </td>
-              <td>
-                {!! Form::text('state',null,['class'=>'form-control']) !!}
-              </td>
-              <td>
-                {!! Form::text('zip',null,['class'=>'form-control']) !!}
-              </td>
-              <td>
-                {!! Form::text('country',null,['class'=>'form-control']) !!}
-              </td>
-            </tr>
+              <div class=" form-inline">
+                {!! Form::label('first_name','First Name : ',['class'=>'control-label col-sm-5'])!!}
 
-          </table>
+                {!! Form::text('first_name',null,['class'=>'form-control col-sm-7', 'style'=>'width:55%'  ]) !!}
+              </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="form-inline">
+                {!! Form::label('contact_email','Contact Email : ',['class'=>'control-label col-sm-5'])!!}
+
+                {!! Form::text('contact_email',null,['class'=>'form-control col-sm-7', 'style'=>'width:55%']) !!}
+                </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-6">
+              {!! Form::label('country','Country : ',['class'=>'control-label col-sm-5'])!!}
+
+              {!! Form::text('country',null,['class'=>'form-control col-sm-7', 'style'=>'width:55%']) !!}
+
+              <div class=" form-inline">
+
+              </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="form-inline">
+                {!! Form::label('contact_number','Contact Number : ',['class'=>'control-label col-sm-5'])!!}
+
+                {!! Form::text('contact_number',null,['class'=>'form-control col-sm-7', 'style'=>'width:55%']) !!}
+                </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-6">
+
+              <div class=" form-inline">
+                {!! Form::label('street','Street : ',['class'=>'control-label col-sm-5'])!!}
+
+                {!! Form::text('street',null,['class'=>'form-control col-sm-7', 'style'=>'width:55%'  ]) !!}
+
+              </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="form-inline">
+                {!! Form::label('city','City : ',['class'=>'control-label col-sm-5'])!!}
+
+                {!! Form::text('city',null,['class'=>'form-control col-sm-7', 'style'=>'width:55%']) !!}
+                </div>
+            </div>
+          </div>
+
+
+          <div class="row">
+            <div class="col-sm-6">
+
+              <div class=" form-inline">
+                {!! Form::label('state','State : ',['class'=>'control-label col-sm-5'])!!}
+
+                {!! Form::text('state',null,['class'=>'form-control col-sm-7', 'style'=>'width:55%'  ]) !!}
+              </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="form-inline">
+                {!! Form::label('zip','Zip : ',['class'=>'control-label col-sm-5'])!!}
+
+                {!! Form::text('zip',null,['class'=>'form-control col-sm-7', 'style'=>'width:55%']) !!}
+                </div>
+            </div>
+          </div>
+
         </div>
+
+
+
+
+
+
 
 
 
@@ -196,9 +227,6 @@ run();
               <tr>
                 <th>Product </th><th>Size &amp;Color </th><th>Price </th><th>Quantity </th><th>Total </th><th>Sales Price </th><th>remove</th>
               </tr>
-
-
-
                   <tr>
                     <td>{!! Form::text('product_name[]',null,['class'=>'form-control pn', 'id'=>'product_name_0' ])!!}</td>
                     <td>
@@ -220,13 +248,7 @@ run();
 
                     </td>
 
-
                   </tr>
-
-
-
-
-
 
             </table>
 
@@ -243,7 +265,7 @@ run();
         <div class="form-group">
           {!! Form::label('market_place','Market place : ',['class'=>'control-label col-sm-2'])!!}
           <div class="col-sm-6 ">
-              {!! Form::select('market_place',['select'=>'-Select-','amazone.com'=>'Amazone.com','amazone.uk'=>'Amazone.uk','maxstarstore'=>'Maxstarstore','ebay'=>'Ebay','other'=>'Other'],null,['class'=>'form-control','style'=>'width:35%']) !!}
+              {!! Form::select('market_place',['select'=>'-Select-','amazone.com'=>'Amazone.com','amazone.uk'=>'Amazone.uk','Aliexpress'=>'Aliexpress','Taobao'=>'Taobao','maxstarstore'=>'Maxstarstore','ebay'=>'Ebay','other'=>'Other'],null,['class'=>'form-control','style'=>'width:35%']) !!}
           </div>
         </div>
 
@@ -257,7 +279,7 @@ run();
         <div class="form-group form-inline">
           {!! Form::label('notes','Notes : ',['class'=>'control-label col-sm-2'])!!}
           <div class="col-sm-10">
-                  {!! Form::text('notes','Size or Color',['class'=>'form-control']) !!}
+                  {!! Form::text('notes',null,['class'=>'form-control','placeholder'=>'size or color']) !!}
           </div>
         </div>
 
@@ -302,7 +324,7 @@ run();
 
           {!! Form::label('delivery_agency','Delivery Agency : ',['class'=>'control-label col-sm-2'])!!}
           <div class="col-sm-6 ">
-              {!! Form::select('delivery_agency',['select'=>'-Select-','fedex'=>'FedEx','ems'=>'EMS','k-packet'=>'K-Packet'],null,['class'=>'form-control', 'style'=>'width:35%']) !!}
+              {!! Form::select('delivery_agency',['select'=>'-Select-','Fedex'=>'FedEx','EMS'=>'EMS','k-packet'=>'K-Packet','SFexpress'=>'SFexpress'],null,['class'=>'form-control', 'style'=>'width:35%']) !!}
           </div>
         </div>
 
@@ -315,7 +337,9 @@ run();
     </div>
 
     <hr>
-    {!!Form::submit('save',['class'=>'btn btn-default'])!!}{!!Form::reset('Reset',['class'=>'btn btn-default'])!!}
+    {!!Form::submit('save',['class'=>'btn btn-default'])!!}
+    {!!Form::reset('Reset',['class'=>'btn btn-default'])!!}
+    <a href="{{ URL::previous() }}" class="btn btn-default">return</a>
 
   {!!Form::close() !!}
   </div>

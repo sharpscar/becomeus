@@ -131,7 +131,7 @@
       @foreach($arr as $key=>$value)
 
         @if($key=="image")
-          <td style="display: table-cell; text-align: center; vertical-align: middle; "><img src="{{$value}}" class="img_" rel="noreferrer" /></td>
+          <td style="display: table-cell; text-align: center; vertical-align: middle; "><img src="http://localhost/{{$value}}" class="img_" rel="noreferrer" /></td>
         @elseif($key=="id")
           <!-- 키가 id인경우는 테이블에는 표시가 안되지만 value값을 사용해서 수정 / 삭제가 가능하게 유도해야한다. -->
 
@@ -185,11 +185,11 @@
 
 
 <style media="screen">
-    /*table.img_{
-      display: table-cell;
-      text-align: center;
-      vertical-align: middle;
-    }*/
+    table.img_{
+      max-width:100%;
+      width:inherit;
+      height:auto;
+    }
     .dropzone{
       height:10px;
     }
