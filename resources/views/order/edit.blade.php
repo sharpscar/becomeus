@@ -120,24 +120,24 @@
       <table class="table col-sm-12" id="memberTable">
 
         <tr>
-          <th>Product </th><th>Size &amp;Color </th><th>Price </th><th>Quantity </th><th>Total </th><th>Sales Price </th><th>remove</th>
+          <th>Product </th><th>Size </th><th>Price </th><th>Quantity </th><th>Total </th><th>Sales Price </th><th>remove</th>
         </tr>
             <tr>
-              <td>{!! Form::text('product_name',null,['class'=>'form-control pn', 'id'=>'product_name' ])!!}</td>
+              <td>{!! Form::text('product_name[]',null,['class'=>'form-control pn', 'id'=>'product_name' ])!!}</td>
               <td>
-                {!! Form::text('size_color',null,['class'=>'form-control'])!!}
+                {!! Form::text('size_color[]',null,['class'=>'form-control'])!!}
               </td>
               <td>
-                {!! Form::text('price','0',['class'=>'form-control','id'=>'price','readonly'])!!}
+                {!! Form::text('price[]',null,['class'=>'form-control','id'=>'price','readonly'])!!}
               </td>
               <td>
-                {!! Form::text('quantity','0',['class'=>'form-control','id'=>'quantity'])!!}
+                {!! Form::text('quantity[]',null,['class'=>'form-control','id'=>'quantity'])!!}
               </td>
               <td>
-                {!! Form::text('total',null,['class'=>'form-control','id'=>'total','readonly'])!!}
+                {!! Form::text('total[]',null,['class'=>'form-control','id'=>'total','readonly'])!!}
               </td>
               <td>
-                {!! Form::text('sales_price',null,['class'=>'form-control'])!!}
+                {!! Form::text('sales_price[]',null,['class'=>'form-control'])!!}
               </td>
               <td>
 
@@ -198,7 +198,7 @@
   <div class="form-group form-inline">
     {!! Form::label('grand_total','Grand Total : ',['class'=>'control-label col-sm-2'])!!}
     <div class="col-sm-10">
-    {!! Form::text('grand_total','0.00',['class'=>'form-control']) !!}
+    {!! Form::text('grand_total',null,['class'=>'form-control']) !!}
     </div>
   </div>
 
@@ -235,7 +235,122 @@
 </div>
 </div>
 <script type="text/javascript">
+
+
+
   $(function(){
+
+    //초기화한다. $order->product_name_arr의 배열의 크기만큼 tr의 수를 늘린다.
+    var pn_arr_cnt = '<?= count($order->product_name_arr) ?>';
+    var pn_arr =  ('<?=$order->product_name?>').split(",");
+    var price_arr = ('<?=$order->price?>').split(",");
+    var size_color_arr = ('<?=$order->size_color?>').split(",");
+    var quantity_arr = ('<?=$order->quantity?>').split(",");
+    var total_arr = ('<?=$order->total?>').split(",");
+    var sales_price_arr = ('<?=$order->sales_price?>').split(",");
+
+
+    $("#memberTable tr:eq(1) td:eq(0) :text").val(pn_arr[0]);
+    $("#memberTable tr:eq(1) td:eq(1) :text").val(size_color_arr[0]);
+    $("#memberTable tr:eq(1) td:eq(2) :text").val(price_arr[0]);
+    $("#memberTable tr:eq(1) td:eq(3) :text").val(quantity_arr[0]);
+    $("#memberTable tr:eq(1) td:eq(4) :text").val(total_arr[0]);
+    $("#memberTable tr:eq(1) td:eq(5) :text").val(sales_price_arr[0]);
+
+    if(pn_arr_cnt !=1){
+       //alert(pn_arr_cnt);
+      for(var i=0; i<pn_arr_cnt-1;i++)
+      {
+        //console.log(pn_arr[i+1]);
+        //alert(pn_arr[i]);
+         $.trClone = $("#memberTable tr:last").clone(true).html();
+         $.newTr = $("<tr class='tr_flag'>"+$.trClone+"</tr>");
+        //  $.newTr.find(":text").val("");
+         $("#memberTable").append($.newTr);
+         //delete Button추가
+        $.btnDelete = $(document.createElement("input"));
+        $.btnDelete.attr({
+          name:"btnRemove",
+          type:"button",
+          class:"btn btn-danger",
+          value:"-"
+        });
+
+        $("#memberTable tr:last td:last").html("");
+        $("#memberTable tr:last td:last").append($.btnDelete);
+
+        $("#memberTable tr>td:last>input[type='button']").on('click', function(){
+          $(this).parent().parent().remove();
+        });
+
+      }
+
+      $(".tr_flag:eq(0) td:eq(0) :text").val(pn_arr[1]);
+      $(".tr_flag:eq(1) td:eq(0) :text").val(pn_arr[2]);
+      $(".tr_flag:eq(2) td:eq(0) :text").val(pn_arr[3]);
+      $(".tr_flag:eq(3) td:eq(0) :text").val(pn_arr[4]);
+      $(".tr_flag:eq(4) td:eq(0) :text").val(pn_arr[5]);
+      $(".tr_flag:eq(5) td:eq(0) :text").val(pn_arr[6]);
+      $(".tr_flag:eq(6) td:eq(0) :text").val(pn_arr[7]);
+      $(".tr_flag:eq(7) td:eq(0) :text").val(pn_arr[8]);
+      $(".tr_flag:eq(8) td:eq(0) :text").val(pn_arr[9]);
+
+      //증가되는  tr의 인덱스 만큼 선택자도 증가되어야 한다. size_color
+       $(".tr_flag:eq(0) td:eq(1) :text").val(size_color_arr[1]);
+       $(".tr_flag:eq(1) td:eq(1) :text").val(size_color_arr[2]);
+       $(".tr_flag:eq(2) td:eq(1) :text").val(size_color_arr[3]);
+       $(".tr_flag:eq(3) td:eq(1) :text").val(size_color_arr[4]);
+       $(".tr_flag:eq(4) td:eq(1) :text").val(size_color_arr[5]);
+       $(".tr_flag:eq(5) td:eq(1) :text").val(size_color_arr[6]);
+       $(".tr_flag:eq(6) td:eq(1) :text").val(size_color_arr[7]);
+       $(".tr_flag:eq(7) td:eq(1) :text").val(size_color_arr[8]);
+       $(".tr_flag:eq(8) td:eq(1) :text").val(size_color_arr[9]);
+
+
+       //증가되는  tr의 인덱스 만큼 선택자도 증가되어야 한다. price
+      $(".tr_flag:eq(0) td:eq(2) :text").val(price_arr[1]);
+      $(".tr_flag:eq(1) td:eq(2) :text").val(price_arr[2]);
+      $(".tr_flag:eq(2) td:eq(2) :text").val(price_arr[3]);
+      $(".tr_flag:eq(3) td:eq(2) :text").val(price_arr[4]);
+      $(".tr_flag:eq(4) td:eq(2) :text").val(price_arr[5]);
+      $(".tr_flag:eq(5) td:eq(2) :text").val(price_arr[6]);
+      $(".tr_flag:eq(6) td:eq(2) :text").val(price_arr[7]);
+      $(".tr_flag:eq(7) td:eq(2) :text").val(price_arr[8]);
+      $(".tr_flag:eq(8) td:eq(2) :text").val(price_arr[9]);
+      //증가되는  tr의 인덱스 만큼 선택자도 증가되어야 한다. quantity
+      $(".tr_flag:eq(0) td:eq(3) :text").val(quantity_arr[1]);
+      $(".tr_flag:eq(1) td:eq(3) :text").val(quantity_arr[2]);
+      $(".tr_flag:eq(2) td:eq(3) :text").val(quantity_arr[3]);
+      $(".tr_flag:eq(3) td:eq(3) :text").val(quantity_arr[4]);
+      $(".tr_flag:eq(4) td:eq(3) :text").val(quantity_arr[5]);
+      $(".tr_flag:eq(5) td:eq(3) :text").val(quantity_arr[6]);
+      $(".tr_flag:eq(6) td:eq(3) :text").val(quantity_arr[7]);
+      $(".tr_flag:eq(7) td:eq(3) :text").val(quantity_arr[8]);
+      $(".tr_flag:eq(8) td:eq(3) :text").val(quantity_arr[9]);
+
+      //증가되는  tr의 인덱스 만큼 선택자도 증가되어야 한다. total
+       $(".tr_flag:eq(0) td:eq(4) :text").val(total_arr[1]);
+       $(".tr_flag:eq(1) td:eq(4) :text").val(total_arr[2]);
+       $(".tr_flag:eq(2) td:eq(4) :text").val(total_arr[3]);
+       $(".tr_flag:eq(3) td:eq(4) :text").val(total_arr[4]);
+       $(".tr_flag:eq(4) td:eq(4) :text").val(total_arr[5]);
+       $(".tr_flag:eq(5) td:eq(4) :text").val(total_arr[6]);
+       $(".tr_flag:eq(6) td:eq(4) :text").val(total_arr[7]);
+       $(".tr_flag:eq(7) td:eq(4) :text").val(total_arr[8]);
+       $(".tr_flag:eq(8) td:eq(4) :text").val(total_arr[9]);
+
+       //증가되는  tr의 인덱스 만큼 선택자도 증가되어야 한다. sales_ price
+      $(".tr_flag:eq(0) td:eq(5) :text").val(sales_price_arr[1]);
+      $(".tr_flag:eq(1) td:eq(5) :text").val(sales_price_arr[2]);
+      $(".tr_flag:eq(2) td:eq(5) :text").val(sales_price_arr[3]);
+      $(".tr_flag:eq(3) td:eq(5) :text").val(sales_price_arr[4]);
+      $(".tr_flag:eq(4) td:eq(5) :text").val(sales_price_arr[5]);
+      $(".tr_flag:eq(5) td:eq(5) :text").val(sales_price_arr[6]);
+      $(".tr_flag:eq(6) td:eq(5) :text").val(sales_price_arr[7]);
+      $(".tr_flag:eq(6) td:eq(5) :text").val(sales_price_arr[8]);
+      $(".tr_flag:eq(6) td:eq(5) :text").val(sales_price_arr[9]);
+    }
+    //제품 컬럼들 초기화 끝
     $("#order_date").datepicker({
       changeMonth:true,
       changeYear:true,
@@ -256,7 +371,6 @@
 run();
     function run(){
     $(".pn").autocomplete({
-
         source:'autocomplete',
         minLength:2,
         select:function(event, ui){
@@ -277,13 +391,13 @@ run();
       });
     }
 
-    var cnt=0;
+
 
     //추가 버튼 클릭시
     $("#addItemBtn").click(function(e){
 
       e.preventDefault();
-      //cnt = $(".tr_flag").length +1;
+
       //alert(cnt);
               //clone
               $.trClone = $("#memberTable tr:last").clone(true).html();
@@ -293,8 +407,11 @@ run();
 
                //$.newTr.find(".pn").attr("id","product_name_"+cnt); //+cnt
 
+               $.newTr.find(":text").val("");
               //append
               $("#memberTable").append($.newTr);
+              //초기화
+
 
               //delete Button추가
               $.btnDelete = $(document.createElement("input"));
@@ -316,9 +433,66 @@ run();
                 run();
               });
 
+              totalCalc();
               return false;
 
            });
+
+           totalCalc();
+           function totalCalc(){
+           //추가되는 total 자동계산
+            $(".tr_flag:eq(0) td:eq(3) :text").on("change", function(){
+             $(".tr_flag:eq(0) td:eq(4) :text").val($(this).val()*  $(".tr_flag:eq(0) td:eq(2) :text").val());
+            });
+
+            $(".tr_flag:eq(1) td:eq(3) :text").on("change", function(){
+             $(".tr_flag:eq(1) td:eq(4) :text").val($(this).val()*  $(".tr_flag:eq(1) td:eq(2) :text").val());
+            });
+
+            $(".tr_flag:eq(2) td:eq(3) :text").on("change", function(){
+
+             $(".tr_flag:eq(2) td:eq(4) :text").val($(this).val()*  $(".tr_flag:eq(2) td:eq(2) :text").val());
+            });
+
+            $(".tr_flag:eq(3) td:eq(3) :text").on("change", function(){
+
+             $(".tr_flag:eq(3) td:eq(4) :text").val($(this).val()*  $(".tr_flag:eq(3) td:eq(2) :text").val());
+            });
+
+            $(".tr_flag:eq(4) td:eq(3) :text").on("change", function(){
+
+             $(".tr_flag:eq(4) td:eq(4) :text").val($(this).val()*  $(".tr_flag:eq(4) td:eq(2) :text").val());
+            });
+            $(".tr_flag:eq(5) td:eq(3) :text").on("change", function(){
+
+             $(".tr_flag:eq(5) td:eq(4) :text").val($(this).val()*  $(".tr_flag:eq(5) td:eq(2) :text").val());
+            });
+            $(".tr_flag:eq(6) td:eq(3) :text").on("change", function(){
+
+             $(".tr_flag:eq(6) td:eq(4) :text").val($(this).val()*  $(".tr_flag:eq(6) td:eq(2) :text").val());
+            });
+            $(".tr_flag:eq(7) td:eq(3) :text").on("change", function(){
+
+             $(".tr_flag:eq(7) td:eq(4) :text").val($(this).val()*  $(".tr_flag:eq(7) td:eq(2) :text").val());
+            });
+
+            //그랜드토탈 자동계산
+            $(".tr_flag:last td:eq(3) :text, #memberTable tr:eq(1) td:eq(3) :text").on("change", function(){
+              //total 들을 전부 더해서 grand total 값으로 넣는다.
+              var gtotal=0;
+
+              var cnt= $(".tr_flag").length +2;
+
+              for(var i=1; i<cnt; i++){
+              gtotal = gtotal + (parseInt($("#memberTable tr:eq("+i+") td:eq(4) :text").val()));
+              }
+              $("#grand_total").val(gtotal);
+
+            });
+
+          }
+
+
   });
 </script>
 

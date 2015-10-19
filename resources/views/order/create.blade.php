@@ -25,23 +25,23 @@
       $("#total").val($("#quantity").val()*$("#price").val());
     });
 
-    $("#quantity_1").on('change', function(){
-      //total 값 변경
-      $("#total_1").val($("#quantity_1").val()*$("#price_1").val());
-      alert('값변경');
-    });
-    $("#quantity_2").on('change', function(){
-      //total 값 변경
-      $("#total_2").val($("#quantity_2").val()*$("#price_2").val());
-    });
-    $("#quantity_3").on('change', function(){
-      //total 값 변경
-      $("#total_3").val($("#quantity_3").val()*$("#price_3").val());
-    });
-    $("#quantity_4").on('change', function(){
-      //total 값 변경
-      $("#total_4").val($("#quantity_4").val()*$("#price_4").val());
-    });
+    // $("#quantity_1").on('change', function(){
+    //   //total 값 변경
+    //   $("#total_1").val($("#quantity_1").val()*$("#price_1").val());
+    //   alert('값변경');
+    // });
+    // $("#quantity_2").on('change', function(){
+    //   //total 값 변경
+    //   $("#total_2").val($("#quantity_2").val()*$("#price_2").val());
+    // });
+    // $("#quantity_3").on('change', function(){
+    //   //total 값 변경
+    //   $("#total_3").val($("#quantity_3").val()*$("#price_3").val());
+    // });
+    // $("#quantity_4").on('change', function(){
+    //   //total 값 변경
+    //   $("#total_4").val($("#quantity_4").val()*$("#price_4").val());
+    // });
 
 
 
@@ -76,7 +76,7 @@ run();
 
       e.preventDefault();
       cnt = $(".tr_flag").length +1;
-      alert(cnt);
+      //alert(cnt);
               //clone
               $.trClone = $("#memberTable tr:last").clone(true).html();
               $.newTr =   $("<tr class='tr_flag'>"+$.trClone+"</tr>");
@@ -85,6 +85,7 @@ run();
 
 
               //$("#total").val($("#quantity").val()*$("#price").val());
+              $.newTr.find("#product_name_0").attr("id","product_name_"+cnt);
               $.newTr.find("#total").attr("id","total_"+cnt);
               $.newTr.find("#quantity").attr("id","quantity_"+cnt);
               $.newTr.find("#price").attr("id","price_"+cnt);
@@ -112,10 +113,61 @@ run();
               $(".pn").each(function(){
                 run();
               });
-
+              totalCalc();
               return false;
 
            });
+           totalCalc();
+           function totalCalc(){
+           //추가되는 total 자동계산
+            $(".tr_flag:eq(0) td:eq(3) :text").on("change", function(){
+             $(".tr_flag:eq(0) td:eq(4) :text").val($(this).val()*  $(".tr_flag:eq(0) td:eq(2) :text").val());
+            });
+
+            $(".tr_flag:eq(1) td:eq(3) :text").on("change", function(){
+             $(".tr_flag:eq(1) td:eq(4) :text").val($(this).val()*  $(".tr_flag:eq(1) td:eq(2) :text").val());
+            });
+
+            $(".tr_flag:eq(2) td:eq(3) :text").on("change", function(){
+
+             $(".tr_flag:eq(2) td:eq(4) :text").val($(this).val()*  $(".tr_flag:eq(2) td:eq(2) :text").val());
+            });
+
+            $(".tr_flag:eq(3) td:eq(3) :text").on("change", function(){
+
+             $(".tr_flag:eq(3) td:eq(4) :text").val($(this).val()*  $(".tr_flag:eq(3) td:eq(2) :text").val());
+            });
+
+            $(".tr_flag:eq(4) td:eq(3) :text").on("change", function(){
+
+             $(".tr_flag:eq(4) td:eq(4) :text").val($(this).val()*  $(".tr_flag:eq(4) td:eq(2) :text").val());
+            });
+            $(".tr_flag:eq(5) td:eq(3) :text").on("change", function(){
+
+             $(".tr_flag:eq(5) td:eq(4) :text").val($(this).val()*  $(".tr_flag:eq(5) td:eq(2) :text").val());
+            });
+            $(".tr_flag:eq(6) td:eq(3) :text").on("change", function(){
+
+             $(".tr_flag:eq(6) td:eq(4) :text").val($(this).val()*  $(".tr_flag:eq(6) td:eq(2) :text").val());
+            });
+            $(".tr_flag:eq(7) td:eq(3) :text").on("change", function(){
+
+             $(".tr_flag:eq(7) td:eq(4) :text").val($(this).val()*  $(".tr_flag:eq(7) td:eq(2) :text").val());
+            });
+
+            $(".tr_flag:last td:eq(3) :text, #memberTable tr:eq(1) td:eq(3) :text").on("change", function(){
+              //total 들을 전부 더해서 grand total 값으로 넣는다.
+              var gtotal=0;
+
+              var cnt= $(".tr_flag").length +2;
+
+              for(var i=1; i<cnt; i++){
+              gtotal = gtotal + (parseInt($("#memberTable tr:eq("+i+") td:eq(4) :text").val()));
+              }
+              $("#grand_total").val(gtotal);
+
+            });
+          }
   });
 </script>
 
@@ -210,39 +262,30 @@ run();
           </div>
 
         </div>
-
-
-
-
-
-
-
-
-
         <div class="form-group">
             <h4> Add products</h4>
             <button id="addItemBtn">+</button>
             <table class="table col-sm-12" id="memberTable">
 
               <tr>
-                <th>Product </th><th>Size &amp;Color </th><th>Price </th><th>Quantity </th><th>Total </th><th>Sales Price </th><th>remove</th>
+                <th>Product </th><th>Size  </th><th>Price </th><th>Quantity </th><th>Total </th><th>Sales Price </th><th>remove</th>
               </tr>
                   <tr>
                     <td>{!! Form::text('product_name[]',null,['class'=>'form-control pn', 'id'=>'product_name_0' ])!!}</td>
                     <td>
-                      {!! Form::text('size_color',null,['class'=>'form-control'])!!}
+                      {!! Form::text('size_color[]',null,['class'=>'form-control'])!!}
                     </td>
                     <td>
-                      {!! Form::text('price','0',['class'=>'form-control','id'=>'price','readonly'])!!}
+                      {!! Form::text('price[]','0',['class'=>'form-control','id'=>'price','readonly'])!!}
                     </td>
                     <td>
-                      {!! Form::text('quantity','0',['class'=>'form-control','id'=>'quantity'])!!}
+                      {!! Form::text('quantity[]','0',['class'=>'form-control','id'=>'quantity'])!!}
                     </td>
                     <td>
-                      {!! Form::text('total',null,['class'=>'form-control','id'=>'total','readonly'])!!}
+                      {!! Form::text('total[]',null,['class'=>'form-control','id'=>'total','readonly'])!!}
                     </td>
                     <td>
-                      {!! Form::text('sales_price',null,['class'=>'form-control'])!!}
+                      {!! Form::text('sales_price[]',null,['class'=>'form-control'])!!}
                     </td>
                     <td>
 
@@ -307,7 +350,7 @@ run();
         <div class="form-group form-inline">
           {!! Form::label('grand_total','Grand Total : ',['class'=>'control-label col-sm-2'])!!}
           <div class="col-sm-10">
-          {!! Form::text('grand_total','0.00',['class'=>'form-control']) !!}
+          {!! Form::text('grand_total',null,['class'=>'form-control']) !!}
           </div>
         </div>
 

@@ -121,6 +121,7 @@
         {!! Form::label('image','Image: ',['class'=>'control-label'])  !!}
       </div>
       <div class="col-sm-8">
+        {!! Form::text('image',null,['class'=>'form-control']) !!}
         {!! Form::file('image_from_file',null,['class'=>'form-control']) !!}
       </div>
     </div>
@@ -153,10 +154,17 @@
         // var_dump($arr_marketplaces);
          ?>
 
-        {!! Form::checkbox('marketplaces[]','amazone')  !!}Amazone.com <br>
-        {!! Form::checkbox('marketplaces[]','maxstarstore')  !!}MaxstarStore <br>
-        {!! Form::checkbox('marketplaces[]','ebay')  !!}eBay and etc <br>
-        {!! Form::checkbox('marketplaces[]','淘宝网')  !!}淘宝网 <br>
+        {!! Form::checkbox('marketplaces[]','amazone', in_array("Amazon.com",$arr_marketplaces))  !!}Amazone.com <br>
+        {!! Form::checkbox('marketplaces[]','maxstarstore', in_array("maxstarstore",$arr_marketplaces))  !!}MaxstarStore <br>
+        {!! Form::checkbox('marketplaces[]','ebay', in_array("maxstarstore",$arr_marketplaces))  !!}eBay and etc <br>
+        {!! Form::checkbox('marketplaces[]','淘宝网', in_array("maxstarstore",$arr_marketplaces))  !!}淘宝网 <br>
+
+        <!-- <input type="checkbox" name="marketplaces" value=" 淘宝网" >淘宝网 <br>
+        <input type="checkbox" name="marketplaces" value=" 速卖通" >速卖通 <br>
+        <input type="checkbox" name="marketplaces" value=" Amazon.com" >Amazon.com <br>
+        <input type="checkbox" name="marketplaces" value=" MaxstarStore" >MaxstarStore <br>
+        <input type="checkbox" name="marketplaces" value=" Amazon.uk" >Amazon.uk <br>
+        <input type="checkbox" name="marketplaces" value=" eBay_and_etc" >eBay and etc <br> -->
       </div>
     </div>
   </div>

@@ -27,10 +27,11 @@
       <tr>
         <th>E/D</th>
         <th>Order Date</th>
-        <th>Products</th>
+        <th width="18%">Products</th>
+        <th>Size</th>
         <th>Grand Total</th>
         <th>Order Status</th>
-        <th>On delivery date</th>
+
         <th>Delivery Agency</th>
         <th>Track Number</th>
         <th>Customer</th>
@@ -44,9 +45,10 @@
         $res_arr['id']= $arr['id'];
         $res_arr['order_date'] = $arr['order_date'];
         $res_arr['product_name'] = $arr['product_name'];
+        $res_arr['size_color'] = $arr['size_color'];
         $res_arr['grand_total'] = $arr['grand_total'];
         $res_arr['order_status'] = $arr['order_status'];
-        $res_arr['delivery_date'] = $arr['delivery_date'];
+        //$res_arr['delivery_date'] = $arr['delivery_date'];
         $res_arr['delivery_agency'] = $arr['delivery_agency'];
         $res_arr['track_number'] = $arr['track_number'];
         $res_arr['customer_name'] = $arr['customer_name'];
@@ -87,6 +89,12 @@
 
 
             -->
+            @elseif($key=="size_color")
+              @if(strpos($value,","))
+                <?= str_replace(",", "<br>",$value) ?>
+              @else
+                  {{$value}}
+              @endif
 
             @else
             {{$value}}

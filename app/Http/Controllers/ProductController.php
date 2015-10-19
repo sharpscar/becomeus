@@ -143,6 +143,9 @@ class ProductController extends Controller
         $product = new Product;
         $product->save();
 
+        if(Input::get('image_from_url')){
+          $product->image = Input::get('image_from_url');
+        }
         if( Input::hasFile('image_from_file'))
         {
 

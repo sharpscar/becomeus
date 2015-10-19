@@ -39,10 +39,58 @@ class OrderController extends Controller
     {
         //
         return view('order.create');
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        //
+
+        $order = Order::findOrFail($id);
 
 
 
+        // $order->size_color =  Input::get('size_color');
+        // $order->quantity =  Input::get('quantity');
+        // $order->sales_price =  Input::get('sales_price');
+        // $order->notes =  Input::get('notes');
 
+        $order->market_place = Input::get('market_place');
+        $order->customer_name = Input::get('first_name') . Input::get('last_name'). ' - 1@1.com';
+        $order->order_status = 'pending';
+        $order->product_name =    implode(",", Input::get('product_name'));
+        $order->size_color =      implode(",", Input::get('size_color'));
+        $order->price =           implode(",", Input::get('price'));
+        $order->quantity =        implode(",", Input::get('quantity'));
+        $order->total =           implode(",", Input::get('total'));
+        $order->sales_price =     implode(",", Input::get('sales_price'));
+        $order->sales_owner = Input::get('sales_owner');
+        $order->order_date = Input::get('order_date');
+
+        $order->notes = Input::get('notes');
+        $order->sub_total = Input::get('sub_total');
+        $order->vat = Input::get('vat');
+        $order->discount = Input::get('discount');
+        $order->grand_total = Input::get('grand_total');
+        
+        $order->delivery_date = Input::get('delivery_date');
+        $order->delivery_agency = Input::get('delivery_agency');
+        $order->track_number = Input::get('track_number');
+
+
+        $order->save();
+
+        //  아래의 명령은 사용하기 어렵다. product_name[] 배열을 ,로 나누어줘야 한다.
+        // $order->update($request->all());
+
+
+        return redirect()->route('orders.index');
     }
 
     /**
@@ -74,16 +122,16 @@ class OrderController extends Controller
         $customer->order_relationship = $order->id;
         $order->market_place = Input::get('market_place');
         $order->customer_name = Input::get('first_name') . Input::get('last_name'). ' - 1@1.com';
-        $order->order_status = 'pending(defaultVal)';
-        $order->product_name = implode(",", Input::get('product_name'));
-        $order->size_color = Input::get('size_color');
-        $order->price = Input::get('price');
-        $order->quantity = Input::get('quantity');
-        $order->total = Input::get('total');
-        $order->sales_price = Input::get('sales_price');
+        $order->order_status = 'pending';
+
+        $order->product_name =    implode(",", Input::get('product_name'));
+        $order->size_color =      implode(",", Input::get('size_color'));
+        $order->price =           implode(",", Input::get('price'));
+        $order->quantity =        implode(",", Input::get('quantity'));
+        $order->total =           implode(",", Input::get('total'));
+        $order->sales_price =     implode(",", Input::get('sales_price'));
         $order->sales_owner = Input::get('sales_owner');
         $order->order_date = Input::get('order_date');
-
         $order->notes = Input::get('notes');
         $order->sub_total = Input::get('sub_total');
         $order->vat = Input::get('vat');
@@ -127,33 +175,15 @@ class OrderController extends Controller
       $customer_name = substr($customer_name,0,strpos($customer_name, "-")-1);
       $customer = Customer::where('first_name', $customer_name)->get();
 
+      /* product_name 컬럼안의 갯수만큼 배열 변수를 만들어야한다. */
+       $order->product_name_arr = explode(",",$order->product_name);
+      //갯수를 구한다.
+      //dd($order->product_name_arr);
+
       return view('order.edit', compact('order','customer'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
 
-        $order = Order::findOrFail($id);
-
-        $order->size_color =  Input::get('size_color');
-        $order->quantity =  Input::get('quantity');
-        $order->sales_price =  Input::get('sales_price');
-        $order->notes =  Input::get('notes');
-
-        //고객정보는 바꿀필요없다.
-        $order->update($request->all());
-
-        return redirect()->route('orders.index');
-
-    }
 
     /**
      * Remove the specified resource from storage.
