@@ -25,6 +25,7 @@
 
     <table class="table table-striped">
       <tr>
+        <th>Order ID</th>
         <th>E/D</th>
         <th>Order Date</th>
         <th width="18%">Products</th>
@@ -43,6 +44,7 @@
         $arr = $values['attributes'];
 
         $res_arr['id']= $arr['id'];
+        $res_arr['nothing']= '';
         $res_arr['order_date'] = $arr['order_date'];
         $res_arr['product_name'] = $arr['product_name'];
         $res_arr['size_color'] = $arr['size_color'];
@@ -62,15 +64,8 @@
         @foreach($arr as $key=>$value)
           <td>
             @if($key=="id")
-            {!!Form::open(['method'=>'DELETE', 'route'=>['orders.destroy',$value], 'onsubmit'=>'return confirmDelete()']  ) !!}
-            <a href="{{ route('orders.edit',$value) }}" class="btn btn-default">수정</a>
-            <input type="hidden" name="_token" value="{{csrf_token()}}">
-            <input type="hidden" name="_method" value="delete">
+            {{$value}}
 
-            <input type="submit" name="" class="btn btn-default" value="삭제">
-
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            {!!Form::close()!!}
             @elseif($key=="product_name")
 
               @if(strpos($value,","))
@@ -95,17 +90,26 @@
               @else
                   {{$value}}
               @endif
+            @elseif($key=="nothing")
+            {!!Form::open(['method'=>'DELETE', 'route'=>['orders.destroy',$value], 'onsubmit'=>'return confirmDelete()']  ) !!}
+            <a href="{{ route('orders.edit',$value) }}" class="btn btn-default">수정</a>
+            <input type="hidden" name="_token" value="{{csrf_token()}}">
+            <input type="hidden" name="_method" value="delete">
 
+            <input type="submit" name="" class="btn btn-default" value="삭제">
+
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            {!!Form::close()!!}
             @else
             {{$value}}
+
+
             @endif
+
           </td>
         @endforeach
       </tr>
       @endforeach
-
-
-      </tr>
 
     </table>
   </div>

@@ -150,14 +150,14 @@
       </div>
       <div class="col-sm-8">
         <?php
-        // $arr_marketplaces = explode(',',$product->marketplaces);
+         $arr_marketplaces = explode(',',$product->marketplaces);
         // var_dump($arr_marketplaces);
          ?>
 
         {!! Form::checkbox('marketplaces[]','amazone', in_array("Amazon.com",$arr_marketplaces))  !!}Amazone.com <br>
         {!! Form::checkbox('marketplaces[]','maxstarstore', in_array("maxstarstore",$arr_marketplaces))  !!}MaxstarStore <br>
-        {!! Form::checkbox('marketplaces[]','ebay', in_array("maxstarstore",$arr_marketplaces))  !!}eBay and etc <br>
-        {!! Form::checkbox('marketplaces[]','淘宝网', in_array("maxstarstore",$arr_marketplaces))  !!}淘宝网 <br>
+        {!! Form::checkbox('marketplaces[]','ebay', in_array("ebay",$arr_marketplaces))  !!}eBay and etc <br>
+        {!! Form::checkbox('marketplaces[]','淘宝网', in_array("淘宝网",$arr_marketplaces))  !!}淘宝网 <br>
 
         <!-- <input type="checkbox" name="marketplaces" value=" 淘宝网" >淘宝网 <br>
         <input type="checkbox" name="marketplaces" value=" 速卖通" >速卖通 <br>
