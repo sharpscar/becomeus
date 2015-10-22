@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html ng-app>
 <html>
   <head>
     <meta charset="utf-8">
@@ -6,10 +6,14 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" media="screen" title="no title" charset="utf-8">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.0.1/dropzone.css" media="screen" title="no title" charset="utf-8">
 
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js">
     </script>
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js">
     </script>
+
+
 
     <script type="text/javascript">
 
@@ -18,14 +22,7 @@
 // });
 
 
-    $("#sel_limit").on('change', function(){
-      alert();
-      var select = $(this);
-      var form = $("#search_form");
-      // alert(select.val());
-      // form.attr('action','/product?limit="+select.val())' );
-      form.submit();
-    });
+
 
     function doSubmit(){
        getCheckboxValue();
@@ -59,7 +56,7 @@
 
     /** 체크 박스의 내용을 모아서 값, 값, 값, 이런형식의 문자열로 값을 형성한다. **/
     function getCheckboxValue(){
-        var chk = document.getElementsByName('marketplaces');
+        var chk = document.getElementsByName('market_place');
         var len = chk.length;       // marketplaces 체크박스 숫자
         var checkRow = '';          //체크박스 value를 담을 임시공간
         var checkCnt=0;             //체크된 갯수
@@ -91,7 +88,7 @@
 
       }
 
-        $('input[name=marketplaces]').attr('value', rowValues);
+        $('input[name=market_place]').attr('value', rowValues);
 
     }
 

@@ -35,7 +35,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-         $limit = Input::get('limit')? : 10;
+         $limit = Input::get('limit')? Input::get('limit'): 10;
          $query = Input::get('q');
 
         if($query)
@@ -265,11 +265,17 @@ class ProductController extends Controller
             $product->image = $photo->thumbnail_path;
           }
 
-          $product->marketplaces  = implode(",",Input::get('marketplaces'));
+          if(is_array(Input::get('marketplaces'))){
+              $product->marketplaces  = implode(",",Input::get('marketplaces'));
+          }
+          elseif(Input::get('marketplaces')==''or Input::get('marketplaces')==null){
+            $product->marketplaces  = null;
+          }
+
           // $product->update($request->all());
 
           $product->product_code  =Input::get('product_code');
-          $product->price  =Input::get('price_china');
+          $product->price  =Input::get('price_cny');
           $product->price_krw  =Input::get('price_krw');
           $product->status  =Input::get('status');
           $product->category  =Input::get('category');

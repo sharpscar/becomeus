@@ -3,8 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
-class Order extends Model
+//Model
+class Order extends \Eloquent
 {
     //
 

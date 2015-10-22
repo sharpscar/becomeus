@@ -57,8 +57,11 @@ Route::get('exd','ProductController@exportData');
 Route::get('orders/autocomplete', 'ProductController@autocomplete');
 Route::get('orders/{id}/autocomplete', 'ProductController@autocomplete');
 
+
+App::bind('Acme\Repos\OrderRepoInterface', 'Acme\Repos\DbOrderRepo');
+
 Route::resource('orders','OrderController');
-// Route::get('orders', 'OrderController@index');
+Route::get('orders', ['as'=>'orders','uses'=> 'OrderController@index']);
 // Route::get('orders/create', 'OrderController@create');
 // Route::get('orders/{id}', 'OrderController@show');
 // Route::post('orders', 'OrderController@store');

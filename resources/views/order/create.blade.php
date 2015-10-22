@@ -327,9 +327,9 @@ run();
         </div>
 
         <div class="form-group form-inline">
-          {!! Form::label('sub_total','Sub Total : ',['class'=>'control-label col-sm-2'])!!}
+          <!-- {!! Form::label('sub_total','Sub Total : ',['class'=>'control-label col-sm-2'])!!} -->
           <div class="col-sm-10">
-          {!! Form::text('sub_total','0.00',['class'=>'form-control']) !!}
+          <!-- {!! Form::text('sub_total','0.00',['class'=>'form-control']) !!} -->
           </div>
         </div>
 

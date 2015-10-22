@@ -156,7 +156,7 @@
   <div class="form-group">
     {!! Form::label('market_place','Market place : ',['class'=>'control-label col-sm-2'])!!}
     <div class="col-sm-6 ">
-        {!! Form::select('market_place',['select'=>'-Select-','amazone.com'=>'Amazone.com','amazone.uk'=>'Amazone.uk','maxstarstore'=>'Maxstarstore','Aliexpress'=>'Aliexpress','Taobao'=>'Taobao','ebay'=>'Ebay','other'=>'Other'],null,['class'=>'form-control','style'=>'width:35%']) !!}
+        {!! Form::select('market_place[]',['select'=>'-Select-','amazone.com'=>'Amazone.com','amazone.uk'=>'Amazone.uk','maxstarstore'=>'Maxstarstore','Aliexpress'=>'Aliexpress','Taobao'=>'Taobao','ebay'=>'Ebay','other'=>'Other'],null,['class'=>'form-control','style'=>'width:35%']) !!}
     </div>
   </div>
 
@@ -175,9 +175,9 @@
   </div>
 
   <div class="form-group form-inline">
-    {!! Form::label('sub_total','Sub Total : ',['class'=>'control-label col-sm-2'])!!}
+    <!-- {!! Form::label('sub_total','Sub Total : ',['class'=>'control-label col-sm-2'])!!} -->
     <div class="col-sm-10">
-    {!! Form::text('sub_total','0.00',['class'=>'form-control']) !!}
+    <!-- {!! Form::text('sub_total','0.00',['class'=>'form-control']) !!} -->
     </div>
   </div>
 

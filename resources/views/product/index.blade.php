@@ -50,10 +50,10 @@
         <option value="150">150</option>
         <option value="200">200</option>
       </select> &nbsp;&nbsp;&nbsp;
-      <label for="q">Product Code</label>
+      <label for="q">Product Code :</label>
       <input type="hidden" name="_token" value="{{csrf_token()}}">
       <input type="text" class="form-control" id="q" name="q" placeholder="Search.."style="width:25%; display:inline;">
-      <input type="submit" class="btn btn-default" value="검색" id="search_btn">
+      <input type="submit" class="btn btn-default" value="검색" >
     </div>
   </form>
   </div>
@@ -81,7 +81,7 @@
 <table class="table table-striped">
 
   <tr>
-    <th>Product Code</th>
+    <th width="15%">Product Code</th>
     <th>Image</th>
     <th>Price</th>
     <th>Status</th>
@@ -131,7 +131,18 @@
       @foreach($arr as $key=>$value)
 
         @if($key=="image")
-          <td style="display: table-cell; text-align: center; vertical-align: middle; "><img src="http://localhost/{{$value}}" class="img_" rel="noreferrer" /></td>
+          <!-- 만약 'http://' 값이 있으면 -->
+          @if(strstr($value,'http://'))
+          <td style="display: table-cell; text-align: center; vertical-align: middle; ">
+            <img src="{{$value}}" class="img_" type="image"  style="width:50px; height:50px;"/>
+            <!-- {!!Form::image('{{$value}}')!!} -->
+          </td>
+          @else
+          <!--  서버 방식인 경우 -->
+          <td style="display: table-cell; text-align: center; vertical-align: middle; ">
+            <img src="http://localhost/{{$value}}" class="img_" rel="noreferrer" />
+          </td>
+          @endif
         @elseif($key=="id")
           <!-- 키가 id인경우는 테이블에는 표시가 안되지만 value값을 사용해서 수정 / 삭제가 가능하게 유도해야한다. -->
 
@@ -155,6 +166,15 @@
             </form> -->
 
             <script type="text/javascript">
+
+            $("#sel_limit").on('change',function(){
+              //alert('한번만');
+              var select = $(this);
+              var form = $("#search_form");
+              form.attr('action','/product?limit="+select.val())' );
+              form.submit();
+            });
+
               function confirmDelete(){
                  var x = confirm("Are you sure you want to delete?");
                  if(x)

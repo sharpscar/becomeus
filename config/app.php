@@ -139,7 +139,7 @@ return [
         Intervention\Image\ImageServiceProvider::class,
        'Illuminate\Html\HtmlServiceProvider',
        'Maatwebsite\Excel\ExcelServiceProvider',
-       
+
 
 
 
@@ -203,6 +203,7 @@ return [
         'Html'      => 'Illuminate\Html\HtmlFacade',
         'Form'      => 'Illuminate\Html\FormFacade',
         'Excel' => 'Maatwebsite\Excel\Facades\Excel'
+
 
     ],
 

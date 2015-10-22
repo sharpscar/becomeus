@@ -8,14 +8,21 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Customer;
 use App\Order;
+// use Acme\Repos\OrderRepoInterface;
+
+
 
 class OrderController extends Controller
 {
-
+//OrderRepoInterface $orderRepo
   public function __construct()
   {
     $this->middleware('auth');
+    // $this->OrderRepo = $orderRepo;
+
   }
+
+  protected $orderRepo;
 
     /**
      * Display a listing of the resource.
@@ -24,9 +31,42 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
 
-        $order = Order::orderBy('order_date','desc')->paginate(10);
+        $sortBy = Input::get('sortBy');
+        $direction =  Input::get('direction');
+        $limit = Input::get('limit')? Input::get('limit'):20;
+        $query = Input::get('q');
+
+        //sortBy가 있는경우
+        if($sortBy and $direction){
+
+          if($query)
+          {
+            $order = Order::where('product_name','LIKE',"%$query%")->
+                            orWhere('id','LIKE',"%$query%")->
+                            orWhere('customer_name','LIKE',"%$query%")->
+                            orderBy($sortBy, $direction)->
+                            paginate($limit);
+          }else
+          {
+            $order = Order::orderBy($sortBy, $direction)->paginate($limit);
+          }
+        }else{
+          //sortBy가 없는경우
+          if($query)
+          {
+            $order = Order::where('product_name','LIKE',"%$query%")->
+                            orWhere('id','LIKE',"%$query%")->
+                            orWhere('customer_name','LIKE',"%$query%")->
+                            paginate($limit);
+          }else
+          {
+          //  $order = Order::sortable()->paginate(20);
+             $order = Order::orderBy('id','desc')->paginate($limit);
+          }
+
+        }
+        // $sortBy = Request::get('sortBy');
         return view('order.index', compact('order'));
     }
 
@@ -56,14 +96,19 @@ class OrderController extends Controller
 
 
 
+
         // $order->size_color =  Input::get('size_color');
         // $order->quantity =  Input::get('quantity');
         // $order->sales_price =  Input::get('sales_price');
         // $order->notes =  Input::get('notes');
 
-        $order->market_place = Input::get('market_place');
-        $order->customer_name = Input::get('first_name') . Input::get('last_name'). ' - 1@1.com';
-        $order->order_status = 'pending';
+        $order->market_place = implode(",", Input::get('market_place'));
+        $order->customer_name = Input::get('first_name') . Input::get('last_name');
+        if(Input::get('track_number')){
+          $order->order_status = 'Shiped';
+        }else{
+          $order->order_status = 'Unshiped';
+        }
         $order->product_name =    implode(",", Input::get('product_name'));
         $order->size_color =      implode(",", Input::get('size_color'));
         $order->price =           implode(",", Input::get('price'));
@@ -78,7 +123,7 @@ class OrderController extends Controller
         $order->vat = Input::get('vat');
         $order->discount = Input::get('discount');
         $order->grand_total = Input::get('grand_total');
-        
+
         $order->delivery_date = Input::get('delivery_date');
         $order->delivery_agency = Input::get('delivery_agency');
         $order->track_number = Input::get('track_number');
@@ -90,7 +135,7 @@ class OrderController extends Controller
         // $order->update($request->all());
 
 
-        return redirect()->route('orders.index');
+        return redirect()->route('orders');
     }
 
     /**
@@ -145,7 +190,7 @@ class OrderController extends Controller
         $order->save();
         $customer->save();
 
-        return redirect()->route('orders.index');
+        return redirect()->route('orders');
 
     }
 
@@ -158,6 +203,14 @@ class OrderController extends Controller
     public function show($id)
     {
         //
+        $order = Order::findOrFail($id);
+        $customer_name = $order->customer_name;
+        $customer_name = substr($customer_name,0,8);
+
+        $customer = Customer::where('first_name','LIKE',"%$customer_name%")->get();
+
+
+        return compact('order', 'customer');
     }
 
     /**
@@ -171,10 +224,13 @@ class OrderController extends Controller
       $order = Order::findOrFail($id);
       $customer_name = $order->customer_name;
       //Liu Zhao Wen - 1@1.com
+      $customer_name = substr($customer_name,0,8);
 
-      $customer_name = substr($customer_name,0,strpos($customer_name, "-")-1);
-      $customer = Customer::where('first_name', $customer_name)->get();
+      $customer = Customer::where('first_name','LIKE',"%$customer_name%")->get();
 
+      if($customer == null){
+        return "server can't find customer name call server manager";
+      }
       /* product_name 컬럼안의 갯수만큼 배열 변수를 만들어야한다. */
        $order->product_name_arr = explode(",",$order->product_name);
       //갯수를 구한다.
@@ -194,8 +250,10 @@ class OrderController extends Controller
     public function destroy($id)
     {
         //
+
+        
         Order::destroy($id);
-        return redirect()->route('orders.index');
+        return redirect()->route('orders');
 
     }
 }
