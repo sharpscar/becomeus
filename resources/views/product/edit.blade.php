@@ -214,7 +214,7 @@
         {!! Form::label('price','Price_cny: ',['class'=>'control-label'])  !!}
       </div>
       <div class="col-sm-8">
-        {!! Form::text('price_cny',null,['class'=>'form-control']) !!}
+        {!! Form::text('price',null,['class'=>'form-control']) !!}
       </div>
 
     </div>

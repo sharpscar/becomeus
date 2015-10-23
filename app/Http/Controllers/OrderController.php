@@ -94,8 +94,17 @@ class OrderController extends Controller
 
         $order = Order::findOrFail($id);
 
+        $customer =  Customer::where('order_relationship',$id)->first();
 
-
+        $customer->first_name = Input::get('first_name');
+        $customer->contact_email = Input::get('contact_email');
+        $customer->contact_number = Input::get('contact_number');
+        $customer->street = Input::get('street');
+        $customer->city = Input::get('city');
+        $customer->state = Input::get('state');
+        $customer->zip = Input::get('zip');
+        $customer->country = Input::get('country');
+        $customer->save();
 
         // $order->size_color =  Input::get('size_color');
         // $order->quantity =  Input::get('quantity');
@@ -105,9 +114,14 @@ class OrderController extends Controller
         $order->market_place = implode(",", Input::get('market_place'));
         $order->customer_name = Input::get('first_name') . Input::get('last_name');
         if(Input::get('track_number')){
-          $order->order_status = 'Shiped';
+          $order->order_status = 'Shipped';
+          //기존의 트랙넘버가 없거나 변경이 되었을 경우
+          if($order->track_number =='' or $order->track_number!=Input::get('track_number')){
+            $order->shipped_date = date("Y-m-d");
+          }
+          //track_number값이 있으면 변경이 된거다. 지금 부터 하루동안은 이 오더는 빨간색으로 표시 되도록 한다.
         }else{
-          $order->order_status = 'Unshiped';
+          $order->order_status = 'Unshipped';
         }
         $order->product_name =    implode(",", Input::get('product_name'));
         $order->size_color =      implode(",", Input::get('size_color'));
@@ -130,6 +144,12 @@ class OrderController extends Controller
 
 
         $order->save();
+
+
+
+
+
+
 
         //  아래의 명령은 사용하기 어렵다. product_name[] 배열을 ,로 나누어줘야 한다.
         // $order->update($request->all());
@@ -166,8 +186,8 @@ class OrderController extends Controller
         $customer->country = Input::get('country');
         $customer->order_relationship = $order->id;
         $order->market_place = Input::get('market_place');
-        $order->customer_name = Input::get('first_name') . Input::get('last_name'). ' - 1@1.com';
-        $order->order_status = 'pending';
+        $order->customer_name = Input::get('first_name') . Input::get('last_name');
+        $order->order_status = 'Unshipped';
 
         $order->product_name =    implode(",", Input::get('product_name'));
         $order->size_color =      implode(",", Input::get('size_color'));
@@ -204,12 +224,17 @@ class OrderController extends Controller
     {
         //
         $order = Order::findOrFail($id);
-        $customer_name = $order->customer_name;
-        $customer_name = substr($customer_name,0,8);
 
-        $customer = Customer::where('first_name','LIKE',"%$customer_name%")->get();
+        $customer =  Customer::where('order_relationship',$id)->first();
+        if($customer==null){
+          $customer_name =  substr($order->customer_name,0,6);
+
+          $customer = Customer::where('first_name','LIKE',"%$customer_name%")->first();
+
+        }
 
 
+        //return dd($customer);
         return compact('order', 'customer');
     }
 
@@ -222,15 +247,19 @@ class OrderController extends Controller
     public function edit($id)
     {
       $order = Order::findOrFail($id);
-      $customer_name = $order->customer_name;
-      //Liu Zhao Wen - 1@1.com
-      $customer_name = substr($customer_name,0,8);
 
-      $customer = Customer::where('first_name','LIKE',"%$customer_name%")->get();
+      $customer =  Customer::where('order_relationship',$id)->first();
 
-      if($customer == null){
-        return "server can't find customer name call server manager";
+      if($customer==null){
+        $customer_name =  substr($order->customer_name,0,6);
+
+        $customer = Customer::where('first_name','LIKE',"%$customer_name%")->first();
+
+
+
       }
+      // 여기를 contact_number로 변경하고 없
+      //$customer = Customer::where('first_name','LIKE',"%$customer_name%")->get();
       /* product_name 컬럼안의 갯수만큼 배열 변수를 만들어야한다. */
        $order->product_name_arr = explode(",",$order->product_name);
       //갯수를 구한다.
@@ -251,7 +280,7 @@ class OrderController extends Controller
     {
         //
 
-        
+
         Order::destroy($id);
         return redirect()->route('orders');
 

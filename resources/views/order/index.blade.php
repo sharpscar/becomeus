@@ -53,16 +53,17 @@
   <div class="row-fluid" >
     <table class="table table-striped">
       <tr>
-        <th width="10%">{!!sort_orders_by('id','ID')!!}  </th>
+        <th width="10%" id="collapse_id">{!!sort_orders_by('id','ID')!!} <span id="span_id" class="glyphicon glyphicon-triangle-bottom"></span> </th>
         <th width="10%">{!!sort_orders_by('order_date','Order Date')!!} </th>
         <th width="18%">{!!sort_orders_by('product_name','Products')!!} </th>
         <th>Size</th>
-        <th width="10%">{!!sort_orders_by('grand_total','G Total')!!} </th>
+        <th width="10%">Grand Total</th>
         <th>Order Status</th>
         <th>Delivery</th>
         <th>Track Number</th>
         <th>{!!sort_orders_by('grand_total','Customer')!!} </th>
-        <th>E/D</th>
+        <th>Action</th>
+        <th></th>
       </tr>
 
       @foreach($order as $key=>$values)
@@ -80,7 +81,7 @@
         $res_arr['track_number'] = $arr['track_number'];
         $res_arr['customer_name'] = $arr['customer_name'];
         $res_arr['act_btn']= '';
-
+        $res_arr['shipped_date'] = $arr['shipped_date'];
 
 
         $arr = $res_arr;
@@ -92,9 +93,17 @@
       <tr>
         @foreach($arr as $key=>$value)
           <td>
-            @if($key=="id")
-            {{$value}}<a data-toggle="modal" data-target="#contents"  class="get_a_order" >&nbsp;<span class="glyphicon glyphicon-comment"></span></a>
+
+
+            @if($key=="shipped_date")
+              @if($value==date("Y-m-d"))
+                <div class="red_row"></div>
+              @endif
+            @elseif($key=="id")
+            <a data-toggle="modal" data-target="#contents"  class="get_a_order" ><span class="glyphicon glyphicon-comment"></span></a>&nbsp;&nbsp;{{$value}}
             @elseif($key=="product_name")
+
+
 
               @if(strpos($value,","))
                 <?= str_replace(",", "<br>",$value) ?>
@@ -107,9 +116,9 @@
             나중에 이걸 <a> </a>를 추가하여 href 속성에 특정 라우트로 action과
             argument (product_name)을 넘기게되면 그걸 받는 route는
             상세 페이지를 꾸며 놓겠지 그럼 나는 꾸며진 상세 페이지를 모달로 띄울꺼야
-
-
             -->
+
+
             @elseif($key=="size_color")
               @if(strpos($value,","))
                 <?= str_replace(",", "<br>",$value) ?>
@@ -143,10 +152,11 @@
 
             <!-- -->
 
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
             @else
+
             {{$value}}
+
             @endif
           </td>
         @endforeach
@@ -170,11 +180,15 @@
           <div  id="content_body" tabindex="-1">
 
           </div>
-          <div class="modal-footer">
-            <hr>
-            <button type="button" class="btn btn-default close" data-dismiss="modal">Close</button>
+          <div class="clearfix">
 
           </div>
+          <div class="modal-footer">
+
+          <br>
+            <button type="button" class="btn btn-default close" data-dismiss="modal">Close</button>
+          </div>
+
         </div>
       </div>
 
@@ -220,7 +234,7 @@
     var id = $(this).parent().text().trim();
     //alert(id);
     $.ajax({
-      url:'orders/'+id,
+      url:'/orders/'+id,
       type:'get',
     //  data:id,
       success: function(result){
@@ -228,60 +242,76 @@
         var order = result.order;
         var customer = result.customer;
 
-         console.log(customer);
+        console.log(result);
+        //  console.log(customer);
+         // ,를 <br> 로 리플레이스
+         order.product_name = order.product_name.replace(",","<br>");
+         order.size_color = order.size_color.replace(",","<br>");
+         order.quantity = order.quantity.replace(",","<br>");
 
 
         var contents = '';
         contents +='<div class="row-fluid ">';
           contents +='<div class="col-md-4">';
+          contents +='<h4>Customer Information</h4>';
             contents +='<div class="row">';
-              contents +='<h4>Customer Information</h4>';
               contents +='<div class="col-md-6">Name</div>';
-              contents +='<div class="col-md-6">'+customer[0].first_name+'</div>';
-            contents +='</div>';
-            contents +='<div class="row">';
-              contents +='<div class="col-md-6">Email</div>';
-              contents +='<div class="col-md-6">'+customer[0].contact_email+'</div>';
-            contents +='</div>';
-            contents +='<div class="row">';
-              contents +='<div class="col-md-6">Address</div>';
-              contents +='<div class="col-md-6">'+customer[0].street+'</div>';
+              contents +='<div class="col-md-6">'+customer.first_name+'</div>';
             contents +='</div>';
             contents +='<div class="row">';
               contents +='<div class="col-md-6">Phone</div>';
-              contents +='<div class="col-md-6">'+customer[0].contact_number+'</div>';
+              contents +='<div class="col-md-6">'+customer.contact_number+'</div>';
             contents +='</div>';
+
+            contents +='<div class="row">';
+              contents +='<div class="col-md-6">Zip</div>';
+              contents +='<div class="col-md-6">'+customer.zip+'</div>';
+            contents +='</div>';
+
+            contents +='<div class="row">';
+              contents +='<div class="col-md-6">Street</div>';
+              contents +='<div class="col-md-6">'+customer.street+'</div>';
+            contents +='</div>';
+
+            contents +='<div class="row">';
+              contents +='<div class="col-md-6">City</div>';
+              contents +='<div class="col-md-6">'+customer.city+'</div>';
+            contents +='</div>';
+
+            contents +='<div class="row">';
+              contents +='<div class="col-md-6">State</div>';
+              contents +='<div class="col-md-6">'+customer.state+'</div>';
+            contents +='</div>';
+
             contents +='<div class="row">';
               contents +='<div class="col-md-6">Country</div>';
-              contents +='<div class="col-md-6">'+customer[0].country+'</div>';
+              contents +='<div class="col-md-6">'+customer.country+'</div>';
             contents +='</div>';
           contents +='</div>';
 
           contents +='<div class="col-md-4">';
+            contents +='<h4>Product Information</h4>';
             contents +='<div class="row">';
-              contents +='<h4>Product Information</h4>';
+
         //product 갯수를 구해서 갯수만큼 요소를 생성하고 값을 넣어야한다. 갯수는 ,로 몇개인지 알수있다.
-              contents +='<div class="col-md-6">Product Code</div>'
-              contents +='<div class="col-md-6">'+order.product_name+'</div>';
+              contents +='<div class="col-md-3">Product</div>'
+              contents +='<div class="col-md-4">'+order.product_name+'</div>';
+
+              contents +='<div class="col-md-1">Size</div>'
+              contents +='<div class="col-md-1">'+order.size_color+'</div>';
+
+              contents +='<div class="col-md-2">Quantity</div>'
+              contents +='<div class="col-md-1">'+order.quantity+'</div>';
+
               contents +='</div>';
         //수량에 따라 생성되는 요소의 수가 달라짐
-              contents +='<div class="row">';
-
-                contents += '<div class="col-md-6">Size </div>';
-                contents += '<div class="col-md-6">'+order.size_color+'</div>';
-              contents +='</div>';
-
-              contents +='<div class="row">';
-
-                contents += '<div class="col-md-6">Quantity</div>';
-                contents += '<div class="col-md-6">'+order.quantity+'</div>';
-              contents +='</div>';
 
             contents +='</div>';
 
             contents +='<div class="col-md-4">';
+            contents += '<h4>Sales Information </h4>';
               contents +='<div class="row">';
-                contents += '<h4>Sales Information </h4>';
+
                 contents += '<div class="col-md-6">Sales Owner</div>';
                 contents += '<div class="col-md-6">'+order.sales_owner+'</div>';
               contents +='</div>';
@@ -424,6 +454,64 @@
 
 })();
 
+console.log(location.href);
+
+
+// $(document).ready(function(){
+//   var loc_str = location.href
+//
+//   switch(loc_str){
+//
+//     case 'http://localhost/orders?sortBy=id&direction=asc' :
+//         $('#span_id').attr('calss','glyphicon glyphicon-triangle-top')
+//     break
+//     case 'http://localhost/orders?sortBy=id&direction=desc' :
+//       $('#span_id').attr('calss','glyphicon glyphicon-triangle-bottom')
+//
+//     break
+//     case 'http://localhost/orders?sortBy=order_date&direction=asc' :
+//
+//     break
+//     case 'http://localhost/orders?sortBy=order_date&direction=desc' :
+//
+//     break
+//     case 'http://localhost/orders?sortBy=grand_total&direction=asc' :
+//
+//     break
+//     case 'http://localhost/orders?sortBy=grand_total&direction=desc' :
+//
+//     break
+//   }
+// });
+
+
+  // var loc_str = location.href
+  // if(loc_str.indexOf('sortBy=id')){
+  //
+  //   if(loc_str.indexOf('direction=asc')){
+  //       $('#span_id').attr('class','glyphicon glyphicon-triangle-top')
+  //   }else if(loc_str.indexOf('direction=desc')){
+  //        $('#span_id').attr('class','glyphicon glyphicon-triangle-bottom')
+  //   }
+  // }
+  // else if(loc_str.indexOf('sortBy=order_date')){
+  //     if(loc_str.indexOf('direction=asc')){
+  //
+  //     }
+  //     else if(loc_str.indexOf('direction=desc')){
+  //
+  //     }
+  //   }
+
+$('#collapse_id').on('click', function(){
+  $("#span_id").toggleClass("glyphicon glyphicon-triangle-top");
+})
+
+$('.red_row').parent().parent().css({
+
+//#428bca blue
+  color:'#d9534f'
+})
 
 
 

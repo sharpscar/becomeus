@@ -18,26 +18,27 @@ class CreateOrdersTable extends Migration
           $table->increments('id');
           $table->string('product_name');
           $table->string('size_color');
-          $table->double('price',8,2);
-          $table->integer('quantity');
-          $table->double('total',3,2);
-          $table->double('sales_price',8,2);
+          $table->string('price');
+          $table->string('quantity');
+          $table->string('total');
+          $table->string('sales_price');
           $table->string('sales_owner');
           $table->date('order_date');
           $table->string('notes');
           $table->double('sub_total',5,2);
           $table->double('vat',3,2);
           $table->double('discount',3,2);
-          $table->double('grand_total',5,2);
+          $table->string('grand_total');
           $table->date('delivery_date');
           $table->string('delivery_agency');
           $table->string('track_number');
-
+          $table->string('shipped_date');
 
 
           $table->string('market_place');
           $table->string('customer_name');
           $table->string('order_status');
+
           $table->date('updated_at')->nullable();
           $table->date('created_at')->nullable();
 

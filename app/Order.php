@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 //Model
-class Order extends \Eloquent
+class Order extends Model
 {
     //
 

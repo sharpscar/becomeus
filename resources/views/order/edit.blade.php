@@ -5,10 +5,11 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.css">
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+
   @foreach($customer as $key=>$values)
 <?php
 
-  $customer = $values['attributes']
+  // $customer = $values['attributes']
  ?>
  @endforeach
 
