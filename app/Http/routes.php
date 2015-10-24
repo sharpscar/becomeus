@@ -65,3 +65,6 @@ Route::get('orders', ['as'=>'orders','uses'=> 'OrderController@index']);
 // Route::get('orders/create', 'OrderController@create');
 // Route::get('orders/{id}', 'OrderController@show');
 // Route::post('orders', 'OrderController@store');
+
+
+// Route::get('productsImages',  'ProductController@service_image');

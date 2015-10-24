@@ -96,6 +96,7 @@ class OrderController extends Controller
 
         $customer =  Customer::where('order_relationship',$id)->first();
 
+        
         $customer->first_name = Input::get('first_name');
         $customer->contact_email = Input::get('contact_email');
         $customer->contact_number = Input::get('contact_number');
@@ -184,10 +185,13 @@ class OrderController extends Controller
         $customer->state = Input::get('state');
         $customer->zip = Input::get('zip');
         $customer->country = Input::get('country');
+
         $customer->order_relationship = $order->id;
+
         $order->market_place = Input::get('market_place');
         $order->customer_name = Input::get('first_name') . Input::get('last_name');
         $order->order_status = 'Unshipped';
+        $order->customer_id = $customer->id;
 
         $order->product_name =    implode(",", Input::get('product_name'));
         $order->size_color =      implode(",", Input::get('size_color'));

@@ -106,7 +106,9 @@
 
 
               @if(strpos($value,","))
-                <?= str_replace(",", "<br>",$value) ?>
+                <div class="product_code">
+                  <?= str_replace(",", "<br>",$value) ?>
+                </div>
               @else
                   {{$value}}
               @endif
@@ -166,7 +168,6 @@
       @endforeach
     </table>
 
-    <div class="">
 
 
     <div  id="contents" class="modal fade my_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -194,32 +195,7 @@
 
     </div>
 
-
-
-
-
-    <!--여기가 상세 뷰 콜럽스 -->
-    <!-- <div class="modal fade" id="myModal" role="dialog">
-      <div class="modal-dialog">
-        <table class="table">
-          <tr>
-            <th>주문자 정보</th><th>제품정보</th><th>판매정보</th>
-          </tr>
-          <tr>
-            <td>
-              <dt>Name</dt><dl>Jone</dl>
-            </td>
-          </tr>
-        </table>
-      </div>
-    </div> -->
-
-  </div>
-
   <script type="text/javascript">
-
-
-
 
   $("#sel_limit").on('change',function(){
     //alert('한번만');
@@ -242,7 +218,7 @@
         var order = result.order;
         var customer = result.customer;
 
-        console.log(result);
+        //console.log(result);
         //  console.log(customer);
          // ,를 <br> 로 리플레이스
          order.product_name = order.product_name.replace(",","<br>");
@@ -373,13 +349,28 @@
 
 
 
-
+  //
   var windowHeight = $(window).height();
   var windowWidth = $(window).width();
   var boxHeight = $('#contents').height();
   var boxWidth = $('#contents').width();
+  // var offsetXY = document.viewport.getScrollOffsets(window);
+  // var viewportWH = getViewportSize(window);
+  //
+  // var width = $('#contents').offsetWidth;
+  // var height = $('#contents').offsetHeight;
+  // var vleft = Math.floor((viewportWH.w - (width))/2);
+  // var vtop = Math.floor((viewportWH.h -(height))/2);
 
-  $('#contents').css({'left' : (windowWidth /6), 'top' : ((windowHeight - boxHeight)/4)});
+
+
+
+  $('#contents').css({
+     'position':'fixed',
+     'left' : 330, 'top' : 100
+    // 'left' : (windowWidth /6), 'top' : ((windowHeight - boxHeight)/4)
+
+  });
 
 
 // jefrey

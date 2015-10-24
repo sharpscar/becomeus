@@ -14,7 +14,7 @@
  @endforeach
 
 
-<h1>edit</h1>
+<h1>Edit  <span style="color:lightgrey">#{{$order->id}}</span></h1>
 
 <div class="container">
   <div class="row">
