@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" media="screen" title="no title" charset="utf-8">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.0.1/dropzone.css" media="screen" title="no title" charset="utf-8">
 
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js">
     </script>
@@ -121,7 +121,7 @@
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-        <li><a href="/product">product</a></li>
+        <li><a href="/product">Product</a></li>
         <li><a href="/orders">Orders</a></li>
         <li><a href="#">Purchase</a></li>
         <li><a href="#">Customer</a></li>

@@ -105,7 +105,7 @@
   @foreach($products as $keys=>$values)
   <?php
       $arr =  $values['attributes'];
-      #var_dump($arr);
+    
       $res_arr = [];
 
       $res_arr['product_code'] = $arr['product_code'];

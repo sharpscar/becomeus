@@ -34,4 +34,15 @@ class Order extends Model
       'delivery_agency',
       'track_number'
     ];
+
+    public function product()
+    {
+      return $this->hasManyThrough('App\Product', 'App\OrderItem','product_id','');
+    }
+
+    public function orderItem()
+    {
+      return $this->hasMany('App\OrderItem');
+    }
+
 }

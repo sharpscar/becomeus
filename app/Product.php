@@ -59,8 +59,14 @@ class Product extends Model
       return $this->photos()->save($photo);
     }
 
-    // public function order()
-    // {
-    //   return $this->belongsTo('App\Order');
-    // }
+    public function orderItem()
+    {
+      return $this->belongsTo('App\OrderItem' );
+    }
+
+    public function order()
+    {
+      return $this->belongsTo('App\Order');
+    }
+
 }

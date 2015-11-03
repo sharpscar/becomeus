@@ -2,9 +2,11 @@
 
 @section('content')
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.css">
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.css"> -->
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css">
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+<!-- <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script> -->
+<script src="https://code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
 
 <script type="text/javascript">
   $(function(){
@@ -43,12 +45,11 @@
     //   $("#total_4").val($("#quantity_4").val()*$("#price_4").val());
     // });
 
-
+var product_id ;
 
 run();
     function run(){
     $(".pn").autocomplete({
-
         source:'autocomplete',
         minLength:2,
         select:function(event, ui){
@@ -57,7 +58,6 @@ run();
             //alert($("#product_name").val());
             $(this).parent().next().next().children().first().val(ui.item.price);
           });
-
           //마우스 클릭만 하면 제대로 값이 들어가지 않는 현상 보정
           var origEvent = event;
           while(origEvent.originalEvent !== undefined)
@@ -65,11 +65,18 @@ run();
             if(origEvent.type=='keydown')
               $(".pn").click();
           //return false;
+          product_id +=  ui.item.product_id+",";
         }
       });
     }
 
     var cnt=0;
+
+    //마지막 필드 값을
+    $("#order_date").on("change", function(){
+      $("#product_id").val(product_id);
+      console.log($("#product_id").val());
+    });
 
     //추가 버튼 클릭시
     $("#addItemBtn").click(function(e){
@@ -177,7 +184,7 @@ run();
       <h2>New Order</h2>
       {!!Form::open(['method'=>'POST', 'url'=>'orders','class'=>'form-horizontal']) !!}
       {!! csrf_field() !!}
-
+      {!! Form::hidden('product_id', null, ['id'=>'product_id']) !!}
 
 
         <div class="form-group">

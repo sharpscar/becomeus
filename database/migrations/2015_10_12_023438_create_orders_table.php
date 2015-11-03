@@ -16,12 +16,12 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table){
 
           $table->increments('id');
-          $table->string('product_name');
-          $table->string('size_color');
-          $table->string('price');
-          $table->string('quantity');
-          $table->string('total');
-          $table->string('sales_price');
+          //$table->string('product_name');
+          //$table->string('size_color');
+          //$table->string('price');
+          //$table->string('quantity');
+        //  $table->string('total');
+          //$table->string('sales_price');
           $table->string('sales_owner');
           $table->date('order_date');
           $table->string('notes');
@@ -32,12 +32,15 @@ class CreateOrdersTable extends Migration
           $table->date('delivery_date');
           $table->string('delivery_agency');
           $table->string('track_number');
-          $table->string('shipped_date');
-
-
           $table->string('market_place');
           $table->string('customer_name');
           $table->string('order_status');
+          $table->string('customer_id');
+          $table->string('shipped_date');
+
+
+
+
 
           $table->date('updated_at')->nullable();
           $table->date('created_at')->nullable();

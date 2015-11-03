@@ -68,3 +68,9 @@ Route::get('orders', ['as'=>'orders','uses'=> 'OrderController@index']);
 
 
 // Route::get('productsImages',  'ProductController@service_image');
+
+
+// Event::listen('illuminate.query', function($query)
+// {
+//     var_dump($query);
+// });

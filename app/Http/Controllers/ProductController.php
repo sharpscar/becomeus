@@ -120,12 +120,12 @@ class ProductController extends Controller
     {
        $term = Input::get('term');
       // $result= array();
-      $data = DB::table("products")->select('product_code','price')->where('product_code', 'LIKE', '%'.$term.'%')->get();
+      $data = DB::table("products")->select('product_code','price','id')->where('product_code', 'LIKE', '%'.$term.'%')->get();
 
 
       foreach($data as $code){
 
-      $results[]   = ['value'=>$code->product_code,'price'=>$code->price];
+      $results[]   = ['value'=>$code->product_code,'price'=>$code->price,'product_id'=>$code->id];
       }
       return \Response::json($results);
 

@@ -22,6 +22,7 @@ class CreateProductsTable extends Migration
         $table->integer('price');
         $table->integer('price_krw');
         $table->string('status');
+
         $table->string('product_group');
         $table->string('size')->nullable();
         $table->integer('stock');
@@ -36,6 +37,7 @@ class CreateProductsTable extends Migration
         $table->string('material_english');
         $table->string('material_china');
         $table->increments('id');
+
         $table->string('business_group');
         $table->string('variation');
         $table->string('added_time');
@@ -53,6 +55,8 @@ class CreateProductsTable extends Migration
     public function down()
     {
         //
+
+
         Schema::dropIfExists('products');
     }
 }

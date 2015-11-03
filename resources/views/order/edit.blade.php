@@ -2,17 +2,30 @@
 
 @section('content')
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.css">
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css">
+
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+<script src="https://code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
 
-  @foreach($customer as $key=>$values)
 <?php
-
-  // $customer = $values['attributes']
+  $product_cnt = count($order_item);
+  $product_arr = Array();
+  for($i=0;$i< $product_cnt;$i++){
+   $product_arr[$i] =  $order_item->lists('attributes')[$i];
+   $product_arr_code[$i]  = $product_arr[$i]['product_code'];
+   $product_arr_size[$i]  =  $product_arr[$i]['size_color'];
+   $product_arr_price[$i] =  $product_arr[$i]['price'];
+   $product_arr_quantity[$i] = $product_arr[$i]['quantity'];
+   $product_arr_sales_price[$i] =  $product_arr[$i]['sales_price'];
+   $product_arr_total[$i]  = $product_arr[$i]['total'];
+ }
+ $product_arr_code =  implode(",",$product_arr_code);
+ $product_arr_size =  implode(",",$product_arr_size);
+ $product_arr_price =  implode(",",$product_arr_price);
+ $product_arr_quantity =  implode(",",$product_arr_quantity);
+ $product_arr_sales_price =  implode(",",$product_arr_sales_price);
+ $product_arr_total =  implode(",",$product_arr_total);
  ?>
- @endforeach
-
 
 <h1>Edit  <span style="color:lightgrey">#{{$order->id}}</span></h1>
 
@@ -157,7 +170,7 @@
   <div class="form-group">
     {!! Form::label('market_place','Market place : ',['class'=>'control-label col-sm-2'])!!}
     <div class="col-sm-6 ">
-        {!! Form::select('market_place[]',['select'=>'-Select-','amazone.com'=>'Amazone.com','amazone.uk'=>'Amazone.uk','maxstarstore'=>'Maxstarstore','Aliexpress'=>'Aliexpress','Taobao'=>'Taobao','ebay'=>'Ebay','other'=>'Other'],null,['class'=>'form-control','style'=>'width:35%']) !!}
+        {!! Form::select('market_place',['select'=>'-Select-','amazone.com'=>'Amazone.com','amazone.uk'=>'Amazone.uk','maxstarstore'=>'Maxstarstore','Aliexpress'=>'Aliexpress','Taobao'=>'Taobao','ebay'=>'Ebay','other'=>'Other'],null,['class'=>'form-control','style'=>'width:35%']) !!}
     </div>
   </div>
 
@@ -229,7 +242,7 @@
 </div>
 
 <hr>
-{!!Form::submit('save',['class'=>'btn btn-default'])!!}
+{!!Form::submit('save',['class'=>'btn btn-default','id'=>'submit_btn'])!!}
 <!-- {!!Form::reset('Reset',['class'=>'btn btn-default'])!!} -->
 <a href="{{ URL::previous() }}" class="btn btn-default">return</a>
 {!!Form::close() !!}
@@ -237,19 +250,24 @@
 </div>
 <script type="text/javascript">
 
+// $product_arr_code[$i]= $product_arr[$i]['product_code'];
+// $product_arr_size[$i] = $product_arr[$i]['size_color'];
+// $product_arr_price[$i] = $product_arr[$i]['price'];
+// $product_arr_quantity[$i] = $product_arr[$i]['quantity'];
+// $product_arr_sales_price[$i] = $product_arr[$i]['sales_price'];
+// $product_arr_total[$i] = $product_arr[$i]['total'];
 
 
   $(function(){
+    var product_id ;
 
-    //초기화한다. $order->product_name_arr의 배열의 크기만큼 tr의 수를 늘린다.
-    var pn_arr_cnt = '<?= count($order->product_name_arr) ?>';
-    var pn_arr =  ('<?=$order->product_name?>').split(",");
-    var price_arr = ('<?=$order->price?>').split(",");
-    var size_color_arr = ('<?=$order->size_color?>').split(",");
-    var quantity_arr = ('<?=$order->quantity?>').split(",");
-    var total_arr = ('<?=$order->total?>').split(",");
-    var sales_price_arr = ('<?=$order->sales_price?>').split(",");
-
+  var  pn_arr_cnt =         '<?=$product_cnt?>';
+  var pn_arr =                 ('<?=$product_arr_code?>').split(",");
+ var price_arr =             ('<?=$product_arr_price?>').split(",");
+ var size_color_arr =    ('<?=$product_arr_size?>').split(",");
+ var quantity_arr =       ('<?=$product_arr_quantity?>').split(",");
+ var total_arr =               ('<?=$product_arr_total?>').split(",");
+ var sales_price_arr =   ('<?=$product_arr_sales_price?>').split(",");
 
     $("#memberTable tr:eq(1) td:eq(0) :text").val(pn_arr[0]);
     $("#memberTable tr:eq(1) td:eq(1) :text").val(size_color_arr[0]);
@@ -388,10 +406,16 @@ run();
             if(origEvent.type=='keydown')
               $(".pn").click();
           //return false;
+
+          // product_id += ui.item.product_id+",";
         }
       });
     }
 
+// $("#submit_btn").on("click", function(){
+//   $("#product_id").val(product_id);
+//   console.log($("#product_id").val());
+// });
 
 
     //추가 버튼 클릭시

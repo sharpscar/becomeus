@@ -34,5 +34,9 @@ class CreateProductPhotosTable extends Migration
     public function down()
     {
         //
+        Schema::table('product_photos', function(BluePrint $table){
+          $table->dropForeign('product_photos_product_id_foreign');
+        });
+        Schema::dropIfExists('product_photos');
     }
 }
